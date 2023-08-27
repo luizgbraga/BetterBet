@@ -1,6 +1,5 @@
 package com.project.model;
 
-import com.project.data.*;
 
 public class Club {
     String clubName, clubState;

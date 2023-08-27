@@ -1,7 +1,6 @@
 package com.project.model;
 
 import java.time.LocalTime;
-import com.project.data.*;
 
 public class Match {
     String homeClubName, visitorClubName;

@@ -19,6 +19,16 @@ public class CollectData {
     public static HashMap<String, Integer> clubID = new HashMap<String, Integer>();
 
     public static void main(String[] args) {
+        String[] columnsToAdd = {"mandanteID", "visitanteID", "ambos_marcam", "mais_que_1_gol", "mais_que_2_gol",
+                            "mais_que_3_gol", "mais_que_4_gol", "mais_que_5_gol", "diferenca_maior_igual_2", "diferenca_maior_igual_3",
+                            "zero_gols"};
+        
+                            try {
+            totalData.removeColumns(columnsToAdd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         HashMap<String, Integer> clubIDBuilder = new HashMap<String, Integer>();
 
         int ID = 1;

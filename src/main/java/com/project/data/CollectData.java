@@ -20,6 +20,7 @@ public class CollectData {
     public static HashMap<String, Integer> clubID = new HashMap<String, Integer>();
 
     public static void main(String[] args) {
+        // Need to add all id columns
         String[] columnsToAdd = {"bs", "mt1g", "mt2g", "mt3g", "mt4g", "mt5g", "dgt2", "dgt3", "zero_gols"};
         
         try {

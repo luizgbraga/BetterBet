@@ -189,7 +189,7 @@ public class CollectData {
     }
 
     public static HashMap<String, Table> generateTrainingAndTestData() {
-        CollectData.main(null);
+        updateClubId();
 
         Table totalDataCopy = totalData.copy();
 

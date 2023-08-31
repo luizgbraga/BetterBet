@@ -26,25 +26,7 @@ public class CollectData {
             totalData.removeColumns(7);
         }
 
-        HashMap<String, Integer> clubIdBuilder = new HashMap<String, Integer>();
-
-        int id = 1;
-
-        for (int rowIndex = 0; rowIndex < totalData.rowCount(); rowIndex++) {
-            String homeClubName = totalData.stringColumn("mandante").get(rowIndex);
-            String visitorClubName = totalData.stringColumn("visitante").get(rowIndex);
-
-            if (!clubIdBuilder.containsKey(homeClubName)){
-                clubIdBuilder.put(homeClubName, id);
-                id += 1;
-            }
-            if (!clubIdBuilder.containsKey(visitorClubName)){
-                clubIdBuilder.put(visitorClubName, id);
-                id += 1;
-            }
-        }
-
-        clubId = clubIdBuilder;
+        updateClubId();
 
         HashMap<Integer, IntColumn> idColumns = new HashMap<Integer, IntColumn>();
 
@@ -53,8 +35,6 @@ public class CollectData {
             idColumns.put(i, idColumn);
         }
 
-        // IntColumn homeClubId = IntColumn.create("mandanteID");
-        // IntColumn visitorClubId = IntColumn.create("visitanteID");
         IntColumn bothScore = IntColumn.create("bs");
         IntColumn noGoals = IntColumn.create("zero_gols");
         IntColumn moreThan1Goal = IntColumn.create("mt1g");
@@ -123,8 +103,6 @@ public class CollectData {
                 differenceMoreThanOrEqual3Goals.append(0);
             }
 
-            // homeClubId.append(clubID.get(homeClubName));
-            // visitorClubId.append(clubID.get(visitorClubName));
             for (int i = 1; i <= idColumns.size(); i++) {
                 if (clubId.get(homeClubName) == i || clubId.get(visitorClubName) == i) {
                     idColumns.get(i).append(1);
@@ -138,10 +116,6 @@ public class CollectData {
         totalData.addColumns(bothScore, moreThan1Goal, moreThan2Goal,
                             moreThan3Goal, moreThan4Goal, moreThan5Goal, differenceMoreThanOrEqual2Goals,
                             differenceMoreThanOrEqual3Goals, noGoals);
-
-        // totalData.removeColumns("mandante_placar", "visitante_placar", "mandante_estado", "visitante_estado",
-        //                         "gcontra_mandante", "gcontra_visitante", "penalti_mandante", "penalti_visitante", "mandanteID",
-        //                         "visitanteID");
 
         for (int i = 1; i <= idColumns.size(); i++) {
             totalData.addColumns(idColumns.get(i));
@@ -262,5 +236,27 @@ public class CollectData {
 
     public static Table getAllData() {
         return totalData;
+    }
+
+    static void updateClubId() {
+        HashMap<String, Integer> clubIdBuilder = new HashMap<String, Integer>();
+
+        int id = 1;
+
+        for (int rowIndex = 0; rowIndex < totalData.rowCount(); rowIndex++) {
+            String homeClubName = totalData.stringColumn("mandante").get(rowIndex);
+            String visitorClubName = totalData.stringColumn("visitante").get(rowIndex);
+
+            if (!clubIdBuilder.containsKey(homeClubName)){
+                clubIdBuilder.put(homeClubName, id);
+                id += 1;
+            }
+            if (!clubIdBuilder.containsKey(visitorClubName)){
+                clubIdBuilder.put(visitorClubName, id);
+                id += 1;
+            }
+        }
+
+        clubId = clubIdBuilder;
     }
 }

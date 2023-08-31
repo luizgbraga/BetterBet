@@ -17,7 +17,7 @@ public class CollectData {
     
     static Table totalData = Table.read().csv(csvName);
 
-    public static HashMap<String, Integer> clubID = new HashMap<String, Integer>();
+    public static HashMap<String, Integer> clubId = new HashMap<String, Integer>();
 
     public static void main(String[] args) {        
         int numberOfColumns = totalData.columnCount();
@@ -26,31 +26,31 @@ public class CollectData {
             totalData.removeColumns(7);
         }
 
-        HashMap<String, Integer> clubIDBuilder = new HashMap<String, Integer>();
+        HashMap<String, Integer> clubIdBuilder = new HashMap<String, Integer>();
 
-        int ID = 1;
+        int id = 1;
 
         for (int rowIndex = 0; rowIndex < totalData.rowCount(); rowIndex++) {
             String homeClubName = totalData.stringColumn("mandante").get(rowIndex);
             String visitorClubName = totalData.stringColumn("visitante").get(rowIndex);
 
-            if (!clubIDBuilder.containsKey(homeClubName)){
-                clubIDBuilder.put(homeClubName, ID);
-                ID += 1;
+            if (!clubIdBuilder.containsKey(homeClubName)){
+                clubIdBuilder.put(homeClubName, id);
+                id += 1;
             }
-            if (!clubIDBuilder.containsKey(visitorClubName)){
-                clubIDBuilder.put(visitorClubName, ID);
-                ID += 1;
+            if (!clubIdBuilder.containsKey(visitorClubName)){
+                clubIdBuilder.put(visitorClubName, id);
+                id += 1;
             }
         }
 
-        clubID = clubIDBuilder;
+        clubId = clubIdBuilder;
 
         HashMap<Integer, IntColumn> idColumns = new HashMap<Integer, IntColumn>();
 
-        for (int i = 1; i <= clubID.size(); i++) {
-            IntColumn id = IntColumn.create("id" + String.valueOf(i));
-            idColumns.put(i, id);
+        for (int i = 1; i <= clubId.size(); i++) {
+            IntColumn idColumn = IntColumn.create("id" + String.valueOf(i));
+            idColumns.put(i, idColumn);
         }
 
         // IntColumn homeClubId = IntColumn.create("mandanteID");
@@ -126,7 +126,7 @@ public class CollectData {
             // homeClubId.append(clubID.get(homeClubName));
             // visitorClubId.append(clubID.get(visitorClubName));
             for (int i = 1; i <= idColumns.size(); i++) {
-                if (clubID.get(homeClubName) == i || clubID.get(visitorClubName) == i) {
+                if (clubId.get(homeClubName) == i || clubId.get(visitorClubName) == i) {
                     idColumns.get(i).append(1);
                 }
                 else {
@@ -224,15 +224,16 @@ public class CollectData {
         Table testingData = sampleData[0];
         Table trainingData = sampleData[1];
 
-        String[] inputColumnsWithoutId = {"ID", "hora"};
+        String[] inputColumnsWithoutId = {"ID", "hora", "rodada"};
 
-        String[] inputColumnsWithId = new String[inputColumnsWithoutId.length + clubID.size()];
+        String[] inputColumnsWithId = new String[inputColumnsWithoutId.length + clubId.size()];
         
         inputColumnsWithId[0] = inputColumnsWithoutId[0];
         inputColumnsWithId[1] = inputColumnsWithoutId[1];
+        inputColumnsWithId[2] = inputColumnsWithoutId[2];
 
-        for (int i = 1; i < clubID.size(); i++) {
-            inputColumnsWithId[i+1] = "id" + String.valueOf(i);
+        for (int i = 0; i < clubId.size(); i++) {
+            inputColumnsWithId[i+3] = "id" + String.valueOf(i+1);
         }
 
         String[] outputColumns = {"ID", "bs", "mt1g", "mt2g", "mt3g",

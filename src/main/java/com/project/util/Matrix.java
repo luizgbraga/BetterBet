@@ -54,6 +54,13 @@ public class Matrix {
         System.out.println();
     }
 
+    public void setPosition(int i, int j, double element) throws IllegalArgumentException {
+        if (i > this.rows || j > this.columns) {
+            throw new IllegalArgumentException("Set position error: out of bounds");
+        }
+        this.data[i][j] = element;
+    }
+
     public Matrix copy() {
         Matrix matrixCopy = new Matrix(this.rows, this.columns);
         for(int i = 0; i < this.rows; i++) {

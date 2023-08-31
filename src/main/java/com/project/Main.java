@@ -1,57 +1,32 @@
 package com.project;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.project.network.NeuralNetwork;
-
-// 1: palmeiras
-// 2: flamengo
-// rodada
-// ambosmarcam, somagols>2,somagols>3
+import com.project.network.Network;
+import com.project.util.Matrix;
+import com.project.util.Tuple;
 
 public class Main {
-    static double [][] X= {
-		{1,2,43,16},
-		{1,2,36,20},
-		{1,2,28,16},
-		{1,2,20,16},
-		{1,2,16,21},
-		{1,2,30,16},
-		{1,2,6,22},
-		{1,2,10,22},
-		{1,2,17,22},
-	};
-	static double [][] Y= {
-		{1,1,0},
-        {0,0,0},
-        {1,1,1},
-        {1,1,0},
-        {0,0,0},
-        {0,0,0},
-        {0,0,0},
-        {0,0,0},
-        {0,0,0}
-	};
-
+	static int[] sizes = { 2, 2, 1 };
+	static List<Tuple<Matrix, Matrix>> trainingData = new ArrayList<>();
+	static List<Tuple<Matrix, Matrix>> testData = new ArrayList<>();
+	
 	public static void main(String[] args) {
-		
-		NeuralNetwork nn = new NeuralNetwork(4,10,3);
-		
-		List<Double>output;
-		
-		nn.fit(X, Y, 50000);
-		double [][] input = {
-				{1,2,22,22},
-                {1,2,19,11},
-                {1,2,25,22},
-                {1,2,34,17},	
-		};
-		for(double d[]:input)
-		{
-			output = nn.predict(d);
-			System.out.println(output.toString());
-		}		
 
+		trainingData.add(new Tuple<>(new Matrix(new double[][]{{0}, {0}}), new Matrix(new double[][]{{0}})));
+        testData.add(new Tuple<>(new Matrix(new double[][]{{0}, {0}}), new Matrix(new double[][]{{0}})));
+
+        trainingData.add(new Tuple<>(new Matrix(new double[][]{{0}, {1}}), new Matrix(new double[][]{{1}})));
+        testData.add(new Tuple<>(new Matrix(new double[][]{{0}, {1}}), new Matrix(new double[][]{{1}})));
+
+        trainingData.add(new Tuple<>(new Matrix(new double[][]{{1}, {0}}), new Matrix(new double[][]{{1}})));
+        testData.add(new Tuple<>(new Matrix(new double[][]{{1}, {0}}), new Matrix(new double[][]{{1}})));
+
+        trainingData.add(new Tuple<>(new Matrix(new double[][]{{1}, {1}}), new Matrix(new double[][]{{0}})));
+        testData.add(new Tuple<>(new Matrix(new double[][]{{1}, {1}}), new Matrix(new double[][]{{0}})));
+
+		Network nn = new Network(sizes);
+		nn.StochasticGradientDescent(trainingData, 40, 10, 4, testData);
 	}
-
 }

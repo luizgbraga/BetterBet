@@ -18,8 +18,8 @@ public class CollectData {
     public static HashMap<String, Integer> clubId = new HashMap<String, Integer>();
 
     public static void main(String[] args) {
-
         HashMap<String, Integer> clubIdBuilder = new HashMap<String, Integer>();
+
         int id = 1;
 
         for (int rowIndex = 0; rowIndex < totalData.rowCount(); rowIndex++) {
@@ -162,6 +162,8 @@ public class CollectData {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        totalData = Table.read().csv(csvName);
     }
 
     public static HashMap<String, Table> generateTrainingAndTestData() {
@@ -172,16 +174,20 @@ public class CollectData {
         Table testingData = sampleData[0];
         Table trainingData = sampleData[1];
 
-        String[] inputColumns = {"ID", "hora", "mandanteID", "visitanteID", "mandante_estado", "visitante_estado"};
+        String[] inputColumns = {"ID", "hora", "rodada"};
         String[] outputColumns = {"ID", "ambos_marcam", "mais_que_1_gol", "mais_que_2_gol", "mais_que_3_gol",
                                 "mais_que_4_gol", "mais_que_5_gol", "diferenca_maior_igual_2", "diferenca_maior_igual_3",
                                 "zero_gols"};
 
-        Table trainingDataInput = trainingData.retainColumns(inputColumns);
-        Table trainingDataOutput = trainingData.retainColumns(outputColumns);
+        Table trainingInput = trainingData.copy();
+        Table trainingOutput = trainingData.copy();
+        Table trainingDataInput = trainingInput.retainColumns(inputColumns);
+        Table trainingDataOutput = trainingOutput.retainColumns(outputColumns);
 
-        Table testingDataInput = testingData.retainColumns(inputColumns);
-        Table testingDataOutput = testingData.retainColumns(outputColumns);
+        Table testingInput = testingData.copy();
+        Table testingOutput = testingData.copy();
+        Table testingDataInput = testingInput.retainColumns(inputColumns);
+        Table testingDataOutput = testingOutput.retainColumns(outputColumns);
 
         HashMap<String, Table> hashMap = new HashMap<String, Table>();
 

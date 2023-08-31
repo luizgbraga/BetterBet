@@ -1,5 +1,6 @@
 package com.project.data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.opencsv.CSVWriter;
@@ -12,41 +13,57 @@ import tech.tablesaw.api.Row;
 import tech.tablesaw.api.Table;
 
 public class CollectData {
-
-    static String csvName = "brasileirao.csv";    
+    static String csvName = "brasileirao.csv";
+    
     static Table totalData = Table.read().csv(csvName);
-    public static HashMap<String, Integer> clubId = new HashMap<String, Integer>();
 
-    public static void main(String[] args) {
-        HashMap<String, Integer> clubIdBuilder = new HashMap<String, Integer>();
+    public static HashMap<String, Integer> clubID = new HashMap<String, Integer>();
 
-        int id = 1;
+    public static void main(String[] args) {        
+        int numberOfColumns = totalData.columnCount();
+        // Removes all columns from "bs" until the end to recalculate them
+        for (int columnIndex = 7; columnIndex < numberOfColumns; columnIndex++) {
+            totalData.removeColumns(7);
+        }
+
+        HashMap<String, Integer> clubIDBuilder = new HashMap<String, Integer>();
+
+        int ID = 1;
 
         for (int rowIndex = 0; rowIndex < totalData.rowCount(); rowIndex++) {
             String homeClubName = totalData.stringColumn("mandante").get(rowIndex);
             String visitorClubName = totalData.stringColumn("visitante").get(rowIndex);
 
-            if (!clubIdBuilder.containsKey(homeClubName)){
-                clubIdBuilder.put(homeClubName, id++);
+            if (!clubIDBuilder.containsKey(homeClubName)){
+                clubIDBuilder.put(homeClubName, ID);
+                ID += 1;
             }
-            if (!clubIdBuilder.containsKey(visitorClubName)){
-                clubIdBuilder.put(visitorClubName, id++);
+            if (!clubIDBuilder.containsKey(visitorClubName)){
+                clubIDBuilder.put(visitorClubName, ID);
+                ID += 1;
             }
         }
 
-        clubId = clubIdBuilder;
+        clubID = clubIDBuilder;
 
-        IntColumn homeClubId = IntColumn.create("mandanteID");
-        IntColumn visitorClubId = IntColumn.create("visitanteID");
-        IntColumn bothScore = IntColumn.create("ambos_marcam");
+        HashMap<Integer, IntColumn> idColumns = new HashMap<Integer, IntColumn>();
+
+        for (int i = 1; i <= clubID.size(); i++) {
+            IntColumn id = IntColumn.create("id" + String.valueOf(i));
+            idColumns.put(i, id);
+        }
+
+        // IntColumn homeClubId = IntColumn.create("mandanteID");
+        // IntColumn visitorClubId = IntColumn.create("visitanteID");
+        IntColumn bothScore = IntColumn.create("bs");
         IntColumn noGoals = IntColumn.create("zero_gols");
-        IntColumn moreThan1Goal = IntColumn.create("mais_que_1_gol");
-        IntColumn moreThan2Goal = IntColumn.create("mais_que_2_gol");
-        IntColumn moreThan3Goal = IntColumn.create("mais_que_3_gol");
-        IntColumn moreThan4Goal = IntColumn.create("mais_que_4_gol");
-        IntColumn moreThan5Goal = IntColumn.create("mais_que_5_gol");
-        IntColumn differenceMoreThanOrEqual2Goals = IntColumn.create("diferenca_maior_igual_2");
-        IntColumn differenceMoreThanOrEqual3Goals = IntColumn.create("diferenca_maior_igual_3");
+        IntColumn moreThan1Goal = IntColumn.create("mt1g");
+        IntColumn moreThan2Goal = IntColumn.create("mt2g");
+        IntColumn moreThan3Goal = IntColumn.create("mt3g");
+        IntColumn moreThan4Goal = IntColumn.create("mt4g");
+        IntColumn moreThan5Goal = IntColumn.create("mt5g");
+        IntColumn differenceMoreThanOrEqual2Goals = IntColumn.create("dgt2");
+        IntColumn differenceMoreThanOrEqual3Goals = IntColumn.create("dgt3");
 
         for (Row row : totalData) {
             String homeClubName = row.getString("mandante");
@@ -106,25 +123,54 @@ public class CollectData {
                 differenceMoreThanOrEqual3Goals.append(0);
             }
 
-            homeClubId.append(clubId.get(homeClubName));
-            visitorClubId.append(clubId.get(visitorClubName));
+            // homeClubId.append(clubID.get(homeClubName));
+            // visitorClubId.append(clubID.get(visitorClubName));
+            for (int i = 1; i <= idColumns.size(); i++) {
+                if (clubID.get(homeClubName) == i || clubID.get(visitorClubName) == i) {
+                    idColumns.get(i).append(1);
+                }
+                else {
+                    idColumns.get(i).append(0);
+                }
+            }
         }
 
-        totalData.addColumns(homeClubId, visitorClubId, bothScore, moreThan1Goal, moreThan2Goal,
+        totalData.addColumns(bothScore, moreThan1Goal, moreThan2Goal,
                             moreThan3Goal, moreThan4Goal, moreThan5Goal, differenceMoreThanOrEqual2Goals,
                             differenceMoreThanOrEqual3Goals, noGoals);
+
+        // totalData.removeColumns("mandante_placar", "visitante_placar", "mandante_estado", "visitante_estado",
+        //                         "gcontra_mandante", "gcontra_visitante", "penalti_mandante", "penalti_visitante", "mandanteID",
+        //                         "visitanteID");
+
+        for (int i = 1; i <= idColumns.size(); i++) {
+            totalData.addColumns(idColumns.get(i));
+        }
 
         try {    
             FileWriter fileWriter = new FileWriter(csvName);
             CSVWriter csvWriter = new CSVWriter(fileWriter);
 
-            String[] columnNames = {"ID", "rodada", "hora", "mandante", "visitante", "mandante_placar", "visitante_placar",
-                                "mandante_estado", "visitante_estado", "gcontra_mandante", "gcontra_visitante", "penalti_mandante",
-                                "penalti_visitante", "mandanteID", "visitanteID", "ambos_marcam", "mais_que_1_gol", "mais_que_2_gol",
-                                "mais_que_3_gol", "mais_que_4_gol", "mais_que_5_gol", "diferenca_maior_igual_2", "diferenca_maior_igual_3",
-                                "zero_gols"};
+            ArrayList<String> idColumnNames = new ArrayList<String>();
 
-            csvWriter.writeNext(columnNames, false);
+            for (int i = 1; i <= idColumns.size(); i++) {
+                idColumnNames.add(idColumns.get(i).name());
+            }
+
+            String[] columnNames = {"ID", "rodada", "hora", "mandante", "visitante", "mandante_placar", "visitante_placar",
+                                    "bs", "mt1g", "mt2g", "mt3g", "mt4g", "mt5g", "dgt2", "dgt3", "zero_gols"};
+
+            String[] combinedColumns = new String[columnNames.length + idColumnNames.size()];
+
+            for (int i = 0; i < columnNames.length; i++) {
+                combinedColumns[i] = columnNames[i];
+            }
+
+            for (int i = columnNames.length; i < combinedColumns.length; i++) {
+                combinedColumns[i] = idColumnNames.get(i - columnNames.length);
+            }
+
+            csvWriter.writeNext(combinedColumns, false);
 
             for (Row row : totalData) {
                 String[] rowData = {
@@ -135,26 +181,28 @@ public class CollectData {
                     row.getString("visitante"),
                     String.valueOf(row.getInt("mandante_placar")),
                     String.valueOf(row.getInt("visitante_placar")),
-                    row.getString("mandante_estado"),
-                    row.getString("visitante_estado"),
-                    String.valueOf(row.getInt("gcontra_mandante")),
-                    String.valueOf(row.getInt("gcontra_visitante")),
-                    String.valueOf(row.getInt("penalti_mandante")),
-                    String.valueOf(row.getInt("penalti_visitante")),
-                    String.valueOf(row.getInt("mandanteID")),
-                    String.valueOf(row.getInt("visitanteID")),
-                    String.valueOf(row.getInt("ambos_marcam")),
-                    String.valueOf(row.getInt("mais_que_1_gol")),
-                    String.valueOf(row.getInt("mais_que_2_gol")),
-                    String.valueOf(row.getInt("mais_que_3_gol")),
-                    String.valueOf(row.getInt("mais_que_4_gol")),
-                    String.valueOf(row.getInt("mais_que_5_gol")),
-                    String.valueOf(row.getInt("diferenca_maior_igual_2")),
-                    String.valueOf(row.getInt("diferenca_maior_igual_3")),
+                    String.valueOf(row.getInt("bs")),
+                    String.valueOf(row.getInt("mt1g")),
+                    String.valueOf(row.getInt("mt2g")),
+                    String.valueOf(row.getInt("mt3g")),
+                    String.valueOf(row.getInt("mt4g")),
+                    String.valueOf(row.getInt("mt5g")),
+                    String.valueOf(row.getInt("dgt2")),
+                    String.valueOf(row.getInt("dgt3")),
                     String.valueOf(row.getInt("zero_gols"))
                 };
 
-                csvWriter.writeNext(rowData, false);            
+                String[] combinedRowData = new String[combinedColumns.length];
+
+                for (int i = 0; i < rowData.length; i++) {
+                    combinedRowData[i] = rowData[i];
+                }
+
+                for (int i = rowData.length; i < combinedRowData.length; i++) {
+                    combinedRowData[i] = String.valueOf(row.getInt(i));
+                }
+
+                csvWriter.writeNext(combinedRowData, false);            
             }
 
             csvWriter.close();
@@ -167,6 +215,8 @@ public class CollectData {
     }
 
     public static HashMap<String, Table> generateTrainingAndTestData() {
+        CollectData.main(null);
+
         Table totalDataCopy = totalData.copy();
 
         Table[] sampleData = totalDataCopy.sampleSplit(0.1);
@@ -174,19 +224,29 @@ public class CollectData {
         Table testingData = sampleData[0];
         Table trainingData = sampleData[1];
 
-        String[] inputColumns = {"ID", "hora", "rodada"};
-        String[] outputColumns = {"ID", "ambos_marcam", "mais_que_1_gol", "mais_que_2_gol", "mais_que_3_gol",
-                                "mais_que_4_gol", "mais_que_5_gol", "diferenca_maior_igual_2", "diferenca_maior_igual_3",
+        String[] inputColumnsWithoutId = {"ID", "hora"};
+
+        String[] inputColumnsWithId = new String[inputColumnsWithoutId.length + clubID.size()];
+        
+        inputColumnsWithId[0] = inputColumnsWithoutId[0];
+        inputColumnsWithId[1] = inputColumnsWithoutId[1];
+
+        for (int i = 1; i < clubID.size(); i++) {
+            inputColumnsWithId[i+1] = "id" + String.valueOf(i);
+        }
+
+        String[] outputColumns = {"ID", "bs", "mt1g", "mt2g", "mt3g",
+                                "mt4g", "mt5g", "dgt2", "dgt3",
                                 "zero_gols"};
 
         Table trainingInput = trainingData.copy();
         Table trainingOutput = trainingData.copy();
-        Table trainingDataInput = trainingInput.retainColumns(inputColumns);
+        Table trainingDataInput = trainingInput.retainColumns(inputColumnsWithId);
         Table trainingDataOutput = trainingOutput.retainColumns(outputColumns);
 
         Table testingInput = testingData.copy();
         Table testingOutput = testingData.copy();
-        Table testingDataInput = testingInput.retainColumns(inputColumns);
+        Table testingDataInput = testingInput.retainColumns(inputColumnsWithId);
         Table testingDataOutput = testingOutput.retainColumns(outputColumns);
 
         HashMap<String, Table> hashMap = new HashMap<String, Table>();

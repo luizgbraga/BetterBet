@@ -259,4 +259,23 @@ public class CollectData {
 
         clubId = clubIdBuilder;
     }
+
+    public static ArrayList<String> getAllTeams() {
+        ArrayList<String> teams = new ArrayList<String>();
+
+        for (Row row : totalData) {
+            String homeClubName = row.getString("mandante");
+            String visitorClubName = row.getString("visitante");
+
+            if (!teams.contains(homeClubName)) {
+                teams.add(homeClubName);
+            }
+
+            if (!teams.contains(visitorClubName)) {
+                teams.add(visitorClubName);
+            }
+        }
+
+        return teams;
+    }
 }

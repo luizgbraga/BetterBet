@@ -19,6 +19,10 @@ public class CollectData {
 
     public static HashMap<String, Integer> clubId = new HashMap<String, Integer>();
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {        
         int numberOfColumns = totalData.columnCount();
         // Removes all columns from "bs" until the end to recalculate them
@@ -188,6 +192,10 @@ public class CollectData {
         totalData = Table.read().csv(csvName);
     }
 
+    
+    /** 
+     * @return HashMap<String, Table>
+     */
     public static HashMap<String, Table> generateTrainingAndTestData() {
         updateClubId();
 
@@ -234,6 +242,10 @@ public class CollectData {
         return hashMap;
     }
 
+    
+    /** 
+     * @return Table
+     */
     public static Table getAllData() {
         return totalData;
     }
@@ -260,6 +272,10 @@ public class CollectData {
         clubId = clubIdBuilder;
     }
 
+    
+    /** 
+     * @return ArrayList<String>
+     */
     public static ArrayList<String> getAllTeams() {
         ArrayList<String> teams = new ArrayList<String>();
 

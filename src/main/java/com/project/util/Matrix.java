@@ -31,14 +31,26 @@ public class Matrix {
         this.columns = data[0].length;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getRows() {
         return this.rows;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getColumns() {
         return this.columns;
     }
 
+    
+    /** 
+     * @return double[][]
+     */
     public double[][] getData() {
         return this.data;
     }
@@ -54,6 +66,13 @@ public class Matrix {
         System.out.println();
     }
 
+    
+    /** 
+     * @param i
+     * @param j
+     * @param element
+     * @throws IllegalArgumentException
+     */
     public void setPosition(int i, int j, double element) throws IllegalArgumentException {
         if (i > this.rows || j > this.columns) {
             throw new IllegalArgumentException("Set position error: out of bounds");
@@ -61,6 +80,10 @@ public class Matrix {
         this.data[i][j] = element;
     }
 
+    
+    /** 
+     * @return Matrix
+     */
     public Matrix copy() {
         Matrix matrixCopy = new Matrix(this.rows, this.columns);
         for(int i = 0; i < this.rows; i++) {
@@ -71,6 +94,12 @@ public class Matrix {
         return matrixCopy;
     }    
 
+    
+    /** 
+     * @param m
+     * @param scalar
+     * @return Matrix
+     */
     static public Matrix add(Matrix m, double scalar) {
         Matrix temp = new Matrix(m.rows, m.columns);
         for(int i = 0; i < m.rows; i++) {
@@ -81,6 +110,13 @@ public class Matrix {
         return temp;
     }
 
+    
+    /** 
+     * @param m
+     * @param n
+     * @return Matrix
+     * @throws IllegalArgumentException
+     */
     static public Matrix add(Matrix m, Matrix n) throws IllegalArgumentException {
         if (m.rows != n.rows || m.columns != n.columns) {
             throw new IllegalArgumentException("Sum error: shape mismatch");
@@ -94,6 +130,13 @@ public class Matrix {
         return temp;
     }
 
+    
+    /** 
+     * @param m
+     * @param n
+     * @return Matrix
+     * @throws IllegalArgumentException
+     */
     static public Matrix subtract(Matrix m, Matrix n) throws IllegalArgumentException {
         if (m.rows != n.rows || m.columns != n.columns) {
             throw new IllegalArgumentException("Subtract error: shape mismatch");
@@ -107,6 +150,11 @@ public class Matrix {
         return temp;
     }
 
+    
+    /** 
+     * @param m
+     * @return double
+     */
     static public double sumSquare(Matrix m) {
         double sum = 0;
         for (int i = 0; i < m.rows; i++) {
@@ -117,6 +165,12 @@ public class Matrix {
         return sum;
     }
 
+    
+    /** 
+     * @param m
+     * @param scalar
+     * @return Matrix
+     */
     static public Matrix multiply(Matrix m, double scalar) {
         Matrix temp = new Matrix(m.rows, m.columns);
         for (int i = 0; i < m.rows; i++) {
@@ -127,6 +181,13 @@ public class Matrix {
         return temp;
     }
 
+    
+    /** 
+     * @param m
+     * @param n
+     * @return Matrix
+     * @throws IllegalArgumentException
+     */
     static public Matrix multiply(Matrix m, Matrix n) throws IllegalArgumentException {
         if (m.columns != n.rows) {
             throw new IllegalArgumentException("Multiplying error: shape mismatch");
@@ -143,6 +204,13 @@ public class Matrix {
         return temp;
     }
 
+    
+    /** 
+     * @param m
+     * @param n
+     * @return Matrix
+     * @throws IllegalArgumentException
+     */
     static public Matrix dot(Matrix m, Matrix n) throws IllegalArgumentException {
         if (m.rows != n.rows || m.columns != n.columns) {
             throw new IllegalArgumentException("Dot error: shape mismatch");
@@ -157,6 +225,11 @@ public class Matrix {
     }
 
 
+    
+    /** 
+     * @param m
+     * @return Matrix
+     */
     static public Matrix transpose(Matrix m) {
         Matrix temp = new Matrix(m.columns, m.rows);
         for (int i = 0; i < m.rows; i++) {
@@ -167,6 +240,11 @@ public class Matrix {
         return temp;
     }
 
+    
+    /** 
+     * @param m
+     * @return Matrix
+     */
     static public Matrix sigmoid(Matrix m) {
         Matrix temp = new Matrix(m.rows, m.columns);
         for (int i = 0; i < m.rows; i++) {
@@ -177,6 +255,11 @@ public class Matrix {
         return temp;
     }
 
+    
+    /** 
+     * @param m
+     * @return Matrix
+     */
     static public Matrix dsigmoid(Matrix m) {
         Matrix temp = new Matrix(m.rows, m.columns);
         for (int i = 0; i < m.rows; i++) {

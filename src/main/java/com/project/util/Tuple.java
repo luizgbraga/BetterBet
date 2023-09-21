@@ -9,10 +9,18 @@ public class Tuple<X, Y> {
         this.y = y;
     }
 
+    
+    /** 
+     * @return X
+     */
     public X getX() {
         return x;
     }
 
+    
+    /** 
+     * @return Y
+     */
     public Y getY() {
         return y;
     }

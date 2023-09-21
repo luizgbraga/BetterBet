@@ -11,7 +11,16 @@ import java.util.List;
 import tech.tablesaw.api.Row;
 import tech.tablesaw.api.Table;
 
+/*
+ * Classe de processamento dos dados
+ * @author Diogo Laurindo
+ */
+
 public class ProcessData {
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         HashMap<String, Table> hashMap = CollectData.generateTrainingAndTestData();
 
@@ -21,7 +30,11 @@ public class ProcessData {
         list.get(0).getX().displayMatrix();
         list.get(0).getY().displayMatrix();
     }
-
+    /**
+     * teste teste teste
+     * @param table Tabela a ser transformada
+     * @return Uma matriz (ou array de array)
+     */
     public static double[][] tableToArrayTransformer(Table table) {
         int numberOfColumns = table.columnCount() - 1;
         int numberOfRows = table.rowCount();
@@ -48,6 +61,12 @@ public class ProcessData {
         return matrix;
     } 
 
+    
+    /** 
+     * @param inputData
+     * @param outputData
+     * @return List<Tuple<Matrix, Matrix>>
+     */
     public static List<Tuple<Matrix, Matrix>> generateTuple(Table inputData, Table outputData) {
         double[][] inputArrayBidimensional = tableToArrayTransformer(inputData);
         double[][] outputArrayBidimensional = tableToArrayTransformer(outputData);

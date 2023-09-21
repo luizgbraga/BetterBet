@@ -43,6 +43,11 @@ public class Network {
         }
     }
 
+    
+    /** 
+     * @param inputs
+     * @return Matrix
+     */
     public Matrix feedForward(Matrix inputs) {
         for (int i = 0; i < this.numLayers - 1; i++) {
             Matrix b = this.biases.get(i);
@@ -52,10 +57,21 @@ public class Network {
         return inputs;
     }
 
+    
+    /** 
+     * @param outputActivations
+     * @param y
+     * @return Matrix
+     */
     public static Matrix costDerivative(Matrix outputActivations, Matrix y) {
         return Matrix.subtract(outputActivations, y);
     }
 
+    
+    /** 
+     * @param testData
+     * @return double
+     */
     public double evaluate(List<Tuple<Matrix, Matrix>> testData) {
         double totalError = 0;
     
@@ -71,6 +87,12 @@ public class Network {
         return averageError;
     }
     
+    
+    /** 
+     * @param x
+     * @param y
+     * @return Tuple<List<Matrix>, List<Matrix>>
+     */
     public Tuple<List<Matrix>, List<Matrix>> backprop(Matrix x, Matrix y) {
         List<Matrix> nablaB = new ArrayList<>();
         List<Matrix> nablaW = new ArrayList<>();
@@ -118,6 +140,11 @@ public class Network {
         return new Tuple<>(nablaB, nablaW);
     }
 
+    
+    /** 
+     * @param miniBatch
+     * @param eta
+     */
     public void updateMiniBatch(List<Tuple<Matrix, Matrix>> miniBatch, double eta) {
         List<Matrix> nabla_b = new ArrayList<>();
         List<Matrix> nabla_w = new ArrayList<>();
@@ -152,6 +179,15 @@ public class Network {
         }
     }
 
+    
+    /** 
+     * @param trainingData
+     * @param epochs
+     * @param miniBatchSize
+     * @param eta
+     * @param List<Tuple<Matrix
+     * @param testData
+     */
     public void StochasticGradientDescent(List<Tuple<Matrix, Matrix>> trainingData, int epochs, int miniBatchSize, double eta, List<Tuple<Matrix, Matrix>> testData) {
         int nTest = 0;
         if (testData != null) {

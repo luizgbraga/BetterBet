@@ -17,6 +17,10 @@ public class Main {
 	static List<Tuple<Matrix, Matrix>> trainingData = new ArrayList<>();
 	static List<Tuple<Matrix, Matrix>> testData = new ArrayList<>();
 	
+	
+	/** 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		HashMap<String, Table> tables = CollectData.generateTrainingAndTestData();
 

@@ -92,6 +92,7 @@ public class Network {
             Matrix trueResult = example.getY();
     
             Matrix output = this.feedForward(input);
+            output = Matrix.round(output, 0.1);
             totalError += Matrix.sumSquare(Matrix.subtract(output, trueResult));
         }
 

@@ -301,4 +301,20 @@ public class Matrix {
         }
         return temp;
     }
+
+    /** 
+     * Rounds every matrix entrie to 0 or 1, based on a risk
+     * @param m
+     * @param risk
+     * @return Matrix
+     */
+    static public Matrix round(Matrix m, double risk) {
+        Matrix temp = new Matrix(m.rows, m.columns);
+        for (int i = 0; i < m.rows; i++) {
+            for (int j = 0; j < m.columns; j++) {
+                temp.data[i][j] = m.data[i][j] > (1 - risk) ? 1 : 0;
+            }
+        }
+        return temp;
+    }
 }

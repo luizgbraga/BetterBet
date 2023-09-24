@@ -1,9 +1,41 @@
 package com.project.ui;
 
+import com.project.data.CollectData;
+import com.project.util.TimeConverter;
+
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import com.project.data.CollectData;
+import com.project.data.ProcessData;
+import com.project.network.Network;
+import com.project.util.Matrix;
+import com.project.util.Tuple;
+
+import tech.tablesaw.api.Table;
+
 public class InputForm extends javax.swing.JFrame {
+
+    static int[] sizes = { 2, 2, 1 };
+	static List<Tuple<Matrix, Matrix>> trainingData = new ArrayList<>();
+	static List<Tuple<Matrix, Matrix>> testData = new ArrayList<>();
+	
 
     public InputForm() {
         initComponents();
+        		HashMap<String, Table> tables = CollectData.generateTrainingAndTestData();
+
+		sizes[0] = tables.get("trainingDataInput").columnCount() - 1;
+		sizes[1] = 60;
+		sizes[2] = tables.get("trainingDataOutput").columnCount() - 1;
+
+		trainingData = ProcessData.generateTuple(tables.get("trainingDataInput"), tables.get("trainingDataOutput"));
+		testData = ProcessData.generateTuple(tables.get("testingDataInput"), tables.get("testingDataOutput"));
+
+		Network nn = new Network(sizes);
+		nn.StochasticGradientDescent(trainingData, 30, 10, 0.4, testData);
     }
 
     /**
@@ -159,7 +191,15 @@ public class InputForm extends javax.swing.JFrame {
         String horarioSelecionado = cmbMatchTime.getSelectedItem().toString();
         int riscoSelecionado = sliderRisk.getValue();
 
-        System.out.println(riscoSelecionado);
+        CollectData.updateClubId();
+        HashMap<String, Integer> ids = CollectData.clubId;
+
+        int mandanteId = ids.get(timeMandanteSelecionado);
+        int visitanteId = ids.get(timeVisitanteSelecionado);
+        double horario = TimeConverter.timeToFraction(horarioSelecionado);
+        double risco = (double)riscoSelecionado/100;
+
+        System.out.println(risco);
 
         // Limpar os campos
         cmbHomeClubName.setSelectedIndex(0);
@@ -186,6 +226,8 @@ public class InputForm extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+
+         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

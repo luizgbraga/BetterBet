@@ -18,12 +18,11 @@ public class CollectData {
     static Table totalData = Table.read().csv(csvName);
 
     public static HashMap<String, Integer> clubId = new HashMap<String, Integer>();
-
     
     /** 
      * @param args
      */
-    public static void main(String[] args) {        
+    public static void main(String[] args) {      
         int numberOfColumns = totalData.columnCount();
         // Removes all columns from "bs" until the end to recalculate them
         for (int columnIndex = 7; columnIndex < numberOfColumns; columnIndex++) {
@@ -250,7 +249,8 @@ public class CollectData {
         return totalData;
     }
 
-    static void updateClubId() {
+   public static void updateClubId() {
+        System.out.println("ueruer");
         HashMap<String, Integer> clubIdBuilder = new HashMap<String, Integer>();
 
         int id = 1;

@@ -21,11 +21,12 @@ public class CollectData {
     static String csvName = "brasileirao.csv";
     static Table totalData = Table.read().csv(csvName);
     public static HashMap<String, Integer> clubId = new HashMap<String, Integer>();
+
     
     /** 
      * A main function that get all of raw csv data and formats it.
      */
-    public static void main(String[] args) {        
+    public static void main(String[] args) {      
         int numberOfColumns = totalData.columnCount();
         // Removes all columns from "bs" until the end to recalculate them
         for (int columnIndex = 7; columnIndex < numberOfColumns; columnIndex++) {
@@ -256,7 +257,7 @@ public class CollectData {
     /**
      * A function that updates the ids of the clubId attribute.
      */
-    static void updateClubId() {
+    public static void updateClubId() {
         HashMap<String, Integer> clubIdBuilder = new HashMap<String, Integer>();
 
         int id = 1;

@@ -2,11 +2,21 @@ package com.project.util;
 
 import java.util.Random;
 
+/**
+ * Class for helping matrix treatments along the network
+ * It is important to notice that most methods in this class do NOT modify the this, and that is why they are static
+ * @author Luiz Guilherme Amadi Braga
+ */
 public class Matrix {
 
     private double[][] data;
     private int rows, columns;
 
+    /**
+     * This constructor initializes the matrix with random values following a gaussian distribution 
+     * @param rows
+     * @param columns
+     */
     public Matrix(int rows, int columns) {
         this.data = new double[rows][columns];
         this.rows = rows;
@@ -19,42 +29,55 @@ public class Matrix {
         }
     }
 
+    /** 
+     * This constructor initializes the matrix with 0s in all entries 
+     * @param rows
+     * @param columns
+     * @param zero (this constructor is called when zero is passed as true)
+     */
     public Matrix(int rows, int columns, boolean zero) {
         this.data = new double[rows][columns];
         this.rows = rows;
         this.columns = columns;
     }
 
+    /** 
+     * This constructor initializes the matrix with the values passed in data 
+     * @param data
+     */
     public Matrix(double[][] data) {
         this.data = data;
         this.rows = data.length;
         this.columns = data[0].length;
     }
-
     
     /** 
+     * Rows getter
      * @return int
      */
     public int getRows() {
         return this.rows;
     }
 
-    
-    /** 
+    /**
+     * Columns getter
      * @return int
      */
     public int getColumns() {
         return this.columns;
     }
-
     
-    /** 
+    /**
+     * Data getter
      * @return double[][]
      */
     public double[][] getData() {
         return this.data;
     }
 
+    /**
+     * Print the matrix formatted with two floating values
+     */
     public void displayMatrix() {
         for (int i = 0; i < this.rows; i++) {
             System.out.print("| ");
@@ -66,10 +89,10 @@ public class Matrix {
         System.out.println();
     }
 
-    
     /** 
+     * Sets matrix[i][j] = element
      * @param i
-     * @param j
+     * @param j 
      * @param element
      * @throws IllegalArgumentException
      */
@@ -80,8 +103,8 @@ public class Matrix {
         this.data[i][j] = element;
     }
 
-    
     /** 
+     * Makes a copy of this and returns
      * @return Matrix
      */
     public Matrix copy() {
@@ -93,9 +116,9 @@ public class Matrix {
         }
         return matrixCopy;
     }    
-
     
     /** 
+     * Sums every matrix element to a scalar
      * @param m
      * @param scalar
      * @return Matrix
@@ -112,6 +135,7 @@ public class Matrix {
 
     
     /** 
+     * Sums a matrix to another matrix, term by term
      * @param m
      * @param n
      * @return Matrix
@@ -132,6 +156,7 @@ public class Matrix {
 
     
     /** 
+     * Subtracts a matrix from another matrix, term by term
      * @param m
      * @param n
      * @return Matrix
@@ -152,6 +177,7 @@ public class Matrix {
 
     
     /** 
+     * Returns the sum of the squares of every matrix element
      * @param m
      * @return double
      */
@@ -167,6 +193,7 @@ public class Matrix {
 
     
     /** 
+     * Multiply every matrix element to a scalar
      * @param m
      * @param scalar
      * @return Matrix
@@ -183,6 +210,7 @@ public class Matrix {
 
     
     /** 
+     * Multiplication of matrices (default way)
      * @param m
      * @param n
      * @return Matrix
@@ -206,6 +234,7 @@ public class Matrix {
 
     
     /** 
+     * Multiplies two matrices term by term
      * @param m
      * @param n
      * @return Matrix
@@ -226,7 +255,8 @@ public class Matrix {
 
 
     
-    /** 
+    /**
+     * Transposes matrix
      * @param m
      * @return Matrix
      */
@@ -242,6 +272,7 @@ public class Matrix {
 
     
     /** 
+     * Applies sigmoid function to every matrix element
      * @param m
      * @return Matrix
      */
@@ -257,6 +288,7 @@ public class Matrix {
 
     
     /** 
+     * Applies the derivative of sigmoid function to every matrix element
      * @param m
      * @return Matrix
      */
@@ -265,6 +297,22 @@ public class Matrix {
         for (int i = 0; i < m.rows; i++) {
             for (int j = 0; j < m.columns; j++) {
                 temp.data[i][j] = Util.dsigmoid(m.data[i][j]);
+            }
+        }
+        return temp;
+    }
+
+    /** 
+     * Rounds every matrix entrie to 0 or 1, based on a risk
+     * @param m
+     * @param risk
+     * @return Matrix
+     */
+    static public Matrix round(Matrix m, double risk) {
+        Matrix temp = new Matrix(m.rows, m.columns);
+        for (int i = 0; i < m.rows; i++) {
+            for (int j = 0; j < m.columns; j++) {
+                temp.data[i][j] = m.data[i][j] > (1 - risk) ? 1 : 0;
             }
         }
         return temp;

@@ -96,14 +96,14 @@ public class ProcessData {
         return inputOutputList;
     }
 
-    public static Matrix formatInputData(int homeClubId, int visitorClubId, int hour) {
+    public static Matrix formatInputData(int homeClubId, int visitorClubId, double hour) {
         CollectData.updateClubId();
 
         HashMap<String, Integer> clubId = CollectData.clubId;
 
         double[][] inputData = new double[1][clubId.size()+1];
 
-        inputData[0][0] = hour;
+        inputData[0][0] = hour/24.0;
 
         for (int i = 1; i < clubId.size()+1; i++) {
             if (homeClubId == i || visitorClubId == i) {

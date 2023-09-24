@@ -1,6 +1,7 @@
 package com.project.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import com.opencsv.CSVWriter;
@@ -276,7 +277,8 @@ public class CollectData {
     /** 
      * @return ArrayList<String>
      */
-    public static ArrayList<String> getAllTeams() {
+    public static String[] getAllTeams() {
+        updateClubId();
         ArrayList<String> teams = new ArrayList<String>();
 
         for (Row row : totalData) {
@@ -292,6 +294,10 @@ public class CollectData {
             }
         }
 
-        return teams;
+        String[] teamsArray = new String[teams.size()];
+        teamsArray = teams.toArray(teamsArray);
+        Arrays.sort(teamsArray);
+        
+        return teamsArray;
     }
 }

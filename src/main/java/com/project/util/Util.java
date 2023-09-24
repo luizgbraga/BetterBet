@@ -1,8 +1,13 @@
 package com.project.util;
 
+/**
+ * Class with useful functions
+ * @author Luiz Guilherme Amadi Braga
+ */
 public class Util {
     
     /** 
+     * Sigmoid function
      * @param x
      * @return double
      */
@@ -12,6 +17,7 @@ public class Util {
 
     
     /** 
+     * Derivative of sigmoid function
      * @param x
      * @return double
      */

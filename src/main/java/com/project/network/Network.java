@@ -5,8 +5,11 @@ import com.project.util.Tuple;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
-import com.project.util.Util;
 
+/**
+ * Class for building neural network
+ * @author Luiz Guilherme Amadi Braga
+ */
 public class Network {
 
     private int numLayers;
@@ -14,18 +17,27 @@ public class Network {
     private List<Matrix> biases;
     private List<Matrix> weights;
 
+    /** 
+     * @param sizes
+     * sizes is an array of integers in wich the i-th position is referring to the number of neurons in the i-th layer
+     * For example, sizes = [5, 10, 6] is a 3-layered network with 5 neurons in the first layer, 10 in second and 6 in third
+     */
     public Network(int[] sizes) {
         this.numLayers = sizes.length;
         this.sizes = sizes;
         this.biases = new ArrayList<>();
         this.weights = new ArrayList<>();
 
+        // Initializes biases and weights matrices with gaussian-distributed random values
         for (int i = 1; i < sizes.length; i++) {
             this.biases.add(new Matrix(sizes[i], 1));
             this.weights.add(new Matrix(sizes[i], sizes[i - 1]));
         }
     }
 
+    /**
+     * Prints the network showing how many layers there are, and how many neurons in wich one of them
+     */
     public void displayNetwork() {
         System.out.println("Layers:");
         for (int i = 0; i < this.numLayers; i++) {
@@ -42,9 +54,9 @@ public class Network {
             this.biases.get(i).displayMatrix();
         }
     }
-
     
     /** 
+     * Calculates the input of next layer of neurons
      * @param inputs
      * @return Matrix
      */
@@ -57,7 +69,6 @@ public class Network {
         return inputs;
     }
 
-    
     /** 
      * @param outputActivations
      * @param y
@@ -66,9 +77,10 @@ public class Network {
     public static Matrix costDerivative(Matrix outputActivations, Matrix y) {
         return Matrix.subtract(outputActivations, y);
     }
-
     
     /** 
+     * Evaluates the network performance in guessing the correct bets to be made
+     * Receives a testData of Tuples<inputsMatrix, expectedOutputMatrix> to perform its evaluation
      * @param testData
      * @return double
      */
@@ -87,8 +99,8 @@ public class Network {
         return averageError;
     }
     
-    
     /** 
+     * Computes the gradients (partial derivatives) of the cost function with respect to the weights and biases of a neural network
      * @param x
      * @param y
      * @return Tuple<List<Matrix>, List<Matrix>>
@@ -140,8 +152,9 @@ public class Network {
         return new Tuple<>(nablaB, nablaW);
     }
 
-    
     /** 
+     * Updates the parameters in the opposite direction of the gradient of the cost function with respect to the network's parameters
+     * Calls backpropagation to compute the gradient
      * @param miniBatch
      * @param eta
      */
@@ -179,13 +192,12 @@ public class Network {
         }
     }
 
-    
-    /** 
+    /**
+     * Randomly select a subset of training data (mini-batch) and calls a function to update network's parameters based in this subset
      * @param trainingData
      * @param epochs
      * @param miniBatchSize
      * @param eta
-     * @param List<Tuple<Matrix
      * @param testData
      */
     public void StochasticGradientDescent(List<Tuple<Matrix, Matrix>> trainingData, int epochs, int miniBatchSize, double eta, List<Tuple<Matrix, Matrix>> testData) {

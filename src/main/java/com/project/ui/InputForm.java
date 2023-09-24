@@ -159,6 +159,8 @@ public class InputForm extends javax.swing.JFrame {
         String horarioSelecionado = cmbMatchTime.getSelectedItem().toString();
         int riscoSelecionado = sliderRisk.getValue();
 
+        System.out.println(riscoSelecionado);
+
         // Limpar os campos
         cmbHomeClubName.setSelectedIndex(0);
         cmbVisitorClubName.setSelectedIndex(0);

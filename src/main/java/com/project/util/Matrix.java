@@ -50,6 +50,23 @@ public class Matrix {
         this.rows = data.length;
         this.columns = data[0].length;
     }
+
+    /** 
+     * Constructor that converts CSV record to matrix
+     * @param record
+     */
+    public Matrix(String[] record) {
+        int rows = record.length;
+        int columns = record[0].split(",").length;
+        for (int i = 0; i < rows; i++) {
+            String[] rowValues = record[i].split(",");
+            for (int j = 0; j < columns; j++) {
+                data[i][j] = Double.parseDouble(rowValues[j]);
+            }
+        }
+        this.rows = rows;
+        this.columns = columns;
+    }
     
     /** 
      * Rows getter
@@ -317,4 +334,27 @@ public class Matrix {
         }
         return temp;
     }
+
+    /** 
+     * Converts matrix to array of strings with comma-separated values
+     * @param m
+     * @return String[]
+     */
+    static public String[] toStringArr(Matrix m) {
+        double[][] data = m.getData();
+        String[] result = new String[data.length];
+        for (int i = 0; i < data.length; i++) {
+            StringBuilder rowString = new StringBuilder();
+            for (int j = 0; j < data[i].length; j++) {
+                if (j > 0) rowString.append(",");
+                rowString.append(data[i][j]);
+            }
+            result[i] = rowString.toString();
+        }
+        return result;
+    }
 }
+
+
+
+

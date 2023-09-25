@@ -1,5 +1,11 @@
 package com.project.network;
 
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import com.project.util.Matrix;
 import com.project.util.Tuple;
 import java.util.ArrayList;
@@ -35,6 +41,26 @@ public class Network {
         }
     }
 
+    /** 
+     * @param fileName
+     * Constructor by reading CSV
+     */
+    public Network(int[] sizes, String filename) throws IOException {
+        this.numLayers = sizes.length;
+        this.sizes = sizes;
+        this.biases = new ArrayList<>();
+        this.weights = new ArrayList<>();
+        try (CSVReader csvReader = new CSVReader(new FileReader(filename))) {
+            List<String[]> records = csvReader.readAll();
+            for (int i = 0; i < sizes.length - 1; i++) {
+                this.biases.add(new Matrix(records.get(i)));
+            }
+            for (int i = sizes.length - 1; i < 2 * sizes.length - 2; i++) {
+                this.weights.add(new Matrix(records.get(i)));
+            }
+        }
+    }
+
     /**
      * Prints the network showing how many layers there are, and how many neurons in wich one of them
      */
@@ -54,7 +80,24 @@ public class Network {
             this.biases.get(i).displayMatrix();
         }
     }
-    
+
+    /** 
+     * Saves list of weights and biases to CSV file
+     * @param fileName
+     */
+    public void saveBiasesAndWeightsToCSV(String filename) throws IOException {
+        try (CSVWriter csvWriter = new CSVWriter(new FileWriter(filename))) {
+            for (Matrix bias : this.biases) {
+                String[] biasRecord = Matrix.toStringArr(bias);
+                csvWriter.writeNext(biasRecord);
+            }
+            for (Matrix weight : this.weights) {
+                String[] weightRecord = Matrix.toStringArr(weight);
+                csvWriter.writeNext(weightRecord);
+            }
+        }
+    }
+
     /** 
      * Calculates the input of next layer of neurons
      * @param inputs
@@ -218,7 +261,7 @@ public class Network {
         }
         int n = trainingData.size();
         
-        for (int j = 0; j < epochs; j++) {
+        for (int j = 0; j < 2; j++) {
             Collections.shuffle(trainingData);
 
             List<List<Tuple<Matrix, Matrix>>> miniBatches = new ArrayList<>();
@@ -239,6 +282,12 @@ public class Network {
             } else {
                 System.out.println("Epoch " + j + " complete");
             }
+        }
+        try {
+            saveBiasesAndWeightsToCSV("test.csv");
+        } catch (IOException e) {
+
+            e.printStackTrace();
         }
     }
     

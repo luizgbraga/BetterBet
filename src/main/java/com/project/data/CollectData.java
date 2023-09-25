@@ -1,6 +1,7 @@
 package com.project.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import com.opencsv.CSVWriter;
@@ -12,15 +13,18 @@ import tech.tablesaw.api.IntColumn;
 import tech.tablesaw.api.Row;
 import tech.tablesaw.api.Table;
 
+/**
+ * A class to collet all data from csv.
+ * @author Diogo Laurindo
+ */
 public class CollectData {
     static String csvName = "brasileirao.csv";
-    
     static Table totalData = Table.read().csv(csvName);
-
     public static HashMap<String, Integer> clubId = new HashMap<String, Integer>();
+
     
     /** 
-     * @param args
+     * A main function that get all of raw csv data and formats it.
      */
     public static void main(String[] args) {      
         int numberOfColumns = totalData.columnCount();
@@ -190,10 +194,11 @@ public class CollectData {
 
         totalData = Table.read().csv(csvName);
     }
-
     
     /** 
-     * @return HashMap<String, Table>
+     * A function that split the csv data into training and testing data.
+     * @return A hashmap that has 4 tables, 2 for training (splitted into input and output data)
+     * and 2 for testing (splitted also).
      */
     public static HashMap<String, Table> generateTrainingAndTestData() {
         updateClubId();
@@ -240,17 +245,19 @@ public class CollectData {
 
         return hashMap;
     }
-
     
     /** 
-     * @return Table
+     * A function that returns all of the csv data in a Table class.
+     * @return A table containing all data.
      */
     public static Table getAllData() {
         return totalData;
     }
 
-   public static void updateClubId() {
-        System.out.println("ueruer");
+    /**
+     * A function that updates the ids of the clubId attribute.
+     */
+    public static void updateClubId() {
         HashMap<String, Integer> clubIdBuilder = new HashMap<String, Integer>();
 
         int id = 1;
@@ -271,12 +278,13 @@ public class CollectData {
 
         clubId = clubIdBuilder;
     }
-
     
     /** 
-     * @return ArrayList<String>
+     * A function that retrieves a list with all of the club names.
+     * @return An array of strings.
      */
-    public static ArrayList<String> getAllTeams() {
+    public static String[] getAllTeams() {
+        updateClubId();
         ArrayList<String> teams = new ArrayList<String>();
 
         for (Row row : totalData) {
@@ -292,6 +300,10 @@ public class CollectData {
             }
         }
 
-        return teams;
+        String[] teamsArray = new String[teams.size()];
+        teamsArray = teams.toArray(teamsArray);
+        Arrays.sort(teamsArray);
+        
+        return teamsArray;
     }
 }

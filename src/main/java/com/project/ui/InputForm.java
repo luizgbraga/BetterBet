@@ -1,6 +1,8 @@
 package com.project.ui;
 
 import com.project.data.CollectData;
+
+import com.project.data.CollectData;
 import com.project.util.TimeConverter;
 
 
@@ -73,7 +75,7 @@ public class InputForm extends javax.swing.JFrame {
         txtHomeClubName.setText("Time mandante");
 
         cmbHomeClubName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        cmbHomeClubName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "America-RN", "Athletico-PR", "Atletico-MG", "Avai", "Bahia", "Botafogo-RJ", "Brasiliense", "Corinthians", "Coritiba", "Criciuma", "Cruzeiro", "Figueirense", "Flamengo", "Fluminense", "Fortaleza", "Goias", "Gremio", "Guarani", "Internacional", "Ipatinga", "Juventude", "Nautico", "Palmeiras", "Parana", "Paysandu", "Ponte Preta", "Portuguesa", "Santa Cruz", "Santos", "Sao Caetano", "Sao Paulo", "Sport", "Vasco", "Vitoria" }));
+        cmbHomeClubName.setModel(new javax.swing.DefaultComboBoxModel<>(CollectData.getAllTeams()));
         cmbHomeClubName.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cmbHomeClubName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,7 +87,7 @@ public class InputForm extends javax.swing.JFrame {
         txtVisitorClubName.setText("Time visitante");
 
         cmbVisitorClubName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        cmbVisitorClubName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "America-RN", "Athletico-PR", "Atletico-MG", "Avai", "Bahia", "Botafogo-RJ", "Brasiliense", "Corinthians", "Coritiba", "Criciuma", "Cruzeiro", "Figueirense", "Flamengo", "Fluminense", "Fortaleza", "Goias", "Gremio", "Guarani", "Internacional", "Ipatinga", "Juventude", "Nautico", "Palmeiras", "Parana", "Paysandu", "Ponte Preta", "Portuguesa", "Santa Cruz", "Santos", "Sao Caetano", "Sao Paulo", "Sport", "Vasco", "Vitoria" }));
+        cmbVisitorClubName.setModel(new javax.swing.DefaultComboBoxModel<>(CollectData.getAllTeams()));
         cmbVisitorClubName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbVisitorClubNameActionPerformed(evt);

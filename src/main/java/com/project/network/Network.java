@@ -85,19 +85,29 @@ public class Network {
      * @return double
      */
     public double evaluate(List<Tuple<Matrix, Matrix>> testData) {
-        double totalError = 0;
+        int hits = 0;
+        int misses = 0;
     
         for (Tuple<Matrix, Matrix> example : testData) {
             Matrix input = example.getX();
             Matrix trueResult = example.getY();
     
             Matrix output = this.feedForward(input);
-            output = Matrix.round(output, 0.1);
-            totalError += Matrix.sumSquare(Matrix.subtract(output, trueResult));
+            output = Matrix.round(output, 0.25);
+            for (int i = 0; i < output.getRows(); i++) {
+                for (int j = 0; j < output.getColumns(); j++) {
+                    if (output.getData()[i][j] == 1.0 && trueResult.getData()[i][j] == 1.0) {
+                        hits++;
+                    }
+                    if (output.getData()[i][j] == 1.0 && trueResult.getData()[i][j] == 0.0) {
+                        misses++;
+                    }
+                }
+            }
         }
 
-        double averageError = totalError/testData.size();
-        return averageError;
+        double percentageHit = (double)hits/(hits + misses);
+        return percentageHit;
     }
     
     /** 

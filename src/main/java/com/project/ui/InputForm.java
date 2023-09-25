@@ -28,14 +28,14 @@ public class InputForm extends javax.swing.JFrame {
         		HashMap<String, Table> tables = CollectData.generateTrainingAndTestData();
 
 		sizes[0] = tables.get("trainingDataInput").columnCount() - 1;
-		sizes[1] = 60;
+		sizes[1] = 40;
 		sizes[2] = tables.get("trainingDataOutput").columnCount() - 1;
 
 		trainingData = ProcessData.generateTuple(tables.get("trainingDataInput"), tables.get("trainingDataOutput"));
 		testData = ProcessData.generateTuple(tables.get("testingDataInput"), tables.get("testingDataOutput"));
 
 		Network nn = new Network(sizes);
-		nn.StochasticGradientDescent(trainingData, 30, 10, 0.4, testData);
+		nn.StochasticGradientDescent(trainingData, 20, 10, 0.8, testData);
     }
 
     /**

@@ -261,7 +261,7 @@ public class Network {
         }
         int n = trainingData.size();
         
-        for (int j = 0; j < 2; j++) {
+        for (int j = 0; j < epochs; j++) {
             Collections.shuffle(trainingData);
 
             List<List<Tuple<Matrix, Matrix>>> miniBatches = new ArrayList<>();
@@ -282,12 +282,13 @@ public class Network {
             } else {
                 System.out.println("Epoch " + j + " complete");
             }
-        }
-        try {
-            saveBiasesAndWeightsToCSV("test.csv");
-        } catch (IOException e) {
 
-            e.printStackTrace();
+            String formattedHitPercentage = String.format("%.2f", evaluate(testData) * 100);
+            try {
+                saveBiasesAndWeightsToCSV(formattedHitPercentage + ".csv");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
     

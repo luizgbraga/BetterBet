@@ -125,6 +125,6 @@ public class ProcessData {
 
         Matrix inputDataMatrix = new Matrix(inputData);
 
-        return inputDataMatrix;
+        return Matrix.transpose(inputDataMatrix);
     }
 }

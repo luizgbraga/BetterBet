@@ -25,7 +25,7 @@ public class Main {
 		HashMap<String, Table> tables = CollectData.generateTrainingAndTestData();
 
 		sizes[0] = tables.get("trainingDataInput").columnCount() - 1;
-		sizes[1] = 60;
+		sizes[1] = 50;
 		sizes[2] = tables.get("trainingDataOutput").columnCount() - 1;
 
 		trainingData = ProcessData.generateTuple(tables.get("trainingDataInput"), tables.get("trainingDataOutput"));

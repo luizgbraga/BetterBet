@@ -58,6 +58,7 @@ public class Matrix {
     public Matrix(String[] record) {
         int rows = record.length;
         int columns = record[0].split(",").length;
+        this.data = new double[rows][columns];
         for (int i = 0; i < rows; i++) {
             String[] rowValues = record[i].split(",");
             for (int j = 0; j < columns; j++) {

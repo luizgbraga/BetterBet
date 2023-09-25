@@ -1,16 +1,12 @@
 package com.project.ui;
 
-import com.project.data.CollectData;
-
-import com.project.data.CollectData;
-import com.project.util.TimeConverter;
-
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import com.project.data.CollectData;
+import com.project.util.TimeConverter;
 import com.project.data.ProcessData;
 import com.project.network.Network;
 import com.project.util.Matrix;
@@ -27,17 +23,6 @@ public class InputForm extends javax.swing.JFrame {
 
     public InputForm() {
         initComponents();
-        		HashMap<String, Table> tables = CollectData.generateTrainingAndTestData();
-
-		sizes[0] = tables.get("trainingDataInput").columnCount() - 1;
-		sizes[1] = 40;
-		sizes[2] = tables.get("trainingDataOutput").columnCount() - 1;
-
-		trainingData = ProcessData.generateTuple(tables.get("trainingDataInput"), tables.get("trainingDataOutput"));
-		testData = ProcessData.generateTuple(tables.get("testingDataInput"), tables.get("testingDataOutput"));
-
-		Network nn = new Network(sizes);
-		nn.StochasticGradientDescent(trainingData, 20, 10, 0.8, testData);
     }
 
     /**
@@ -202,6 +187,24 @@ public class InputForm extends javax.swing.JFrame {
         double risco = (double)riscoSelecionado/100;
 
         System.out.println(risco);
+
+        Matrix input = ProcessData.formatInputData(mandanteId, visitanteId, horario, 12);
+
+        HashMap<String, Table> tables = CollectData.generateTrainingAndTestData();
+
+		sizes[0] = tables.get("trainingDataInput").columnCount() - 1;
+		sizes[1] = 50;
+		sizes[2] = tables.get("trainingDataOutput").columnCount() - 1;
+
+		Network nn;
+        try {
+            nn = new Network(sizes, "test.csv");
+            Matrix output = nn.feedForward(input);
+            output.displayMatrix();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         // Limpar os campos
         cmbHomeClubName.setSelectedIndex(0);

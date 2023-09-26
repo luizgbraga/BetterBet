@@ -136,7 +136,7 @@ public class Network {
             Matrix trueResult = example.getY();
     
             Matrix output = this.feedForward(input);
-            output = Matrix.round(output, 0.25);
+            output = Matrix.round(output, 0.4);
             for (int i = 0; i < output.getRows(); i++) {
                 for (int j = 0; j < output.getColumns(); j++) {
                     if (output.getData()[i][j] == 1.0 && trueResult.getData()[i][j] == 1.0) {

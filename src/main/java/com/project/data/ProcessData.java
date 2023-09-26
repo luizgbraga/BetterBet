@@ -111,8 +111,8 @@ public class ProcessData {
 
         double[][] inputData = new double[1][clubId.size()+2];
 
-        inputData[0][0] = hour/24.0;
-        inputData[0][1] = round/38.0;
+        inputData[0][0] = hour;
+        inputData[0][1] = round;
 
         for (int i = 2; i < clubId.size()+2; i++) {
             if (homeClubId == i-1 || visitorClubId == i-1) {

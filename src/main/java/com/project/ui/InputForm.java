@@ -1,25 +1,17 @@
 package com.project.ui;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import com.project.data.CollectData;
 import com.project.util.TimeConverter;
 import com.project.data.ProcessData;
 import com.project.network.Network;
 import com.project.util.Matrix;
-import com.project.util.Tuple;
 
 import tech.tablesaw.api.Table;
 
 public class InputForm extends javax.swing.JFrame {
-
-    static int[] sizes = { 2, 2, 1 };
-	static List<Tuple<Matrix, Matrix>> trainingData = new ArrayList<>();
-	static List<Tuple<Matrix, Matrix>> testData = new ArrayList<>();
-	
 
     public InputForm() {
         initComponents();
@@ -42,6 +34,8 @@ public class InputForm extends javax.swing.JFrame {
         cmbVisitorClubName = new javax.swing.JComboBox<>();
         txtMatchTime = new javax.swing.JLabel();
         cmbMatchTime = new javax.swing.JComboBox<>();
+        txtRound = new javax.swing.JLabel();
+        cmbRound = new javax.swing.JComboBox<>();
         txtArriscar = new javax.swing.JLabel();
         sliderRisk = new javax.swing.JSlider();
         btnEnviar = new javax.swing.JButton();
@@ -62,33 +56,24 @@ public class InputForm extends javax.swing.JFrame {
         cmbHomeClubName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         cmbHomeClubName.setModel(new javax.swing.DefaultComboBoxModel<>(CollectData.getAllTeams()));
         cmbHomeClubName.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        cmbHomeClubName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbHomeClubNameActionPerformed(evt);
-            }
-        });
 
         txtVisitorClubName.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         txtVisitorClubName.setText("Time visitante");
 
         cmbVisitorClubName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         cmbVisitorClubName.setModel(new javax.swing.DefaultComboBoxModel<>(CollectData.getAllTeams()));
-        cmbVisitorClubName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbVisitorClubNameActionPerformed(evt);
-            }
-        });
 
         txtMatchTime.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         txtMatchTime.setText("Hora");
 
         cmbMatchTime.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         cmbMatchTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30", "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30" }));
-        cmbMatchTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbMatchTimeActionPerformed(evt);
-            }
-        });
+
+        txtRound.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        txtRound.setText("Rodada");
+
+        cmbRound.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        cmbRound.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38" }));
 
         txtArriscar.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         txtArriscar.setText("Arriscar");
@@ -125,6 +110,8 @@ public class InputForm extends javax.swing.JFrame {
                             .addComponent(cmbVisitorClubName, 0, 368, Short.MAX_VALUE)
                             .addComponent(txtMatchTime)
                             .addComponent(cmbMatchTime, 0, 368, Short.MAX_VALUE)
+                            .addComponent(txtRound)
+                            .addComponent(cmbRound, 0, 368, Short.MAX_VALUE)
                             .addComponent(txtArriscar)
                             .addComponent(sliderRisk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(34, 34, 34))))
@@ -155,6 +142,10 @@ public class InputForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbMatchTime, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(txtRound)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbRound, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(txtArriscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sliderRisk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -164,63 +155,49 @@ public class InputForm extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>                        
-
-    private void cmbHomeClubNameActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        // TODO add your handling code here:
-        String timeMandanteSelecionado = cmbHomeClubName.getSelectedItem().toString();
-    }                                               
+    }// </editor-fold>                                                                  
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-        String timeMandanteSelecionado = cmbHomeClubName.getSelectedItem().toString();
-        String timeVisitanteSelecionado = cmbVisitorClubName.getSelectedItem().toString();
-        String horarioSelecionado = cmbMatchTime.getSelectedItem().toString();
-        int riscoSelecionado = sliderRisk.getValue();
+        String homeClubName = cmbHomeClubName.getSelectedItem().toString();
+        String visitorClubName = cmbVisitorClubName.getSelectedItem().toString();
+        String selectedHour = cmbMatchTime.getSelectedItem().toString();
+        String selectedRound = cmbRound.getSelectedItem().toString();
+        int selectedRisk = sliderRisk.getValue();
 
         CollectData.updateClubId();
         HashMap<String, Integer> ids = CollectData.clubId;
 
-        int mandanteId = ids.get(timeMandanteSelecionado);
-        int visitanteId = ids.get(timeVisitanteSelecionado);
-        double horario = TimeConverter.timeToFraction(horarioSelecionado);
-        double risco = (double)riscoSelecionado/100;
+        int homeClubId = ids.get(homeClubName);
+        int visitorClubId = ids.get(visitorClubName);
+        double hour = TimeConverter.timeToFraction(selectedHour);
+        double round = (double)Integer.parseInt(selectedRound)/38.0;
+        double risk = (double)selectedRisk/200.0;
 
-        System.out.println(risco);
-
-        Matrix input = ProcessData.formatInputData(mandanteId, visitanteId, horario, 12);
+        Matrix input = ProcessData.formatInputData(homeClubId, visitorClubId, hour, round);
 
         HashMap<String, Table> tables = CollectData.generateTrainingAndTestData();
-
-		sizes[0] = tables.get("trainingDataInput").columnCount() - 1;
-		sizes[1] = 50;
-		sizes[2] = tables.get("trainingDataOutput").columnCount() - 1;
+        int[] sizes = { 
+            tables.get("trainingDataInput").columnCount() - 1, 
+            50, 
+            tables.get("trainingDataOutput").columnCount() - 1 };
 
 		Network nn;
         try {
             nn = new Network(sizes, "test.csv");
             Matrix output = nn.feedForward(input);
+            output = Matrix.round(output, risk);
             output.displayMatrix();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        // Limpar os campos
+        // Clean fields
         cmbHomeClubName.setSelectedIndex(0);
         cmbVisitorClubName.setSelectedIndex(0);
         cmbMatchTime.setSelectedIndex(0);
-        sliderRisk.setValue(85);
+        cmbRound.setSelectedIndex(0);
         
     }                                         
-
-    private void cmbVisitorClubNameActionPerformed(java.awt.event.ActionEvent evt) {                                                   
-        // TODO add your handling code here:
-    }                                                  
-
-    private void cmbMatchTimeActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
-    }                                            
 
     /**
      * @param args the command line arguments
@@ -264,8 +241,10 @@ public class InputForm extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbHomeClubName;
     private javax.swing.JComboBox<String> cmbMatchTime;
     private javax.swing.JComboBox<String> cmbVisitorClubName;
+    private javax.swing.JComboBox<String> cmbRound;
     private javax.swing.JSlider sliderRisk;
     private javax.swing.JLabel txtArriscar;
+    private javax.swing.JLabel txtRound;
     private javax.swing.JLabel txtHomeClubName;
     private javax.swing.JLabel txtMatchTime;
     private javax.swing.JLabel txtSubTitle;

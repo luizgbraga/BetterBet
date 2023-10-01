@@ -30,8 +30,9 @@ public class Bets extends javax.swing.JFrame {
         txtTitle = new javax.swing.JLabel();
         txtSubTitle = new javax.swing.JLabel();
         txtBet = new javax.swing.JLabel();
-        cmbBetOptions = new javax.swing.JComboBox<>();
         btnBet = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jListBetOptions = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,16 +55,7 @@ public class Bets extends javax.swing.JFrame {
         txtSubTitle.setText("a melhor plataforma de apostas");
 
         txtBet.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        txtBet.setText("Apostas a fazer");
-
-        cmbBetOptions.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        cmbBetOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ambos marcam", "mais de 2 gols" }));
-        cmbBetOptions.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        cmbBetOptions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbBetOptionsActionPerformed(evt);
-            }
-        });
+        txtBet.setText("Melhores apostas para você:");
 
         btnBet.setBackground(new java.awt.Color(51, 102, 255));
         btnBet.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -76,29 +68,39 @@ public class Bets extends javax.swing.JFrame {
             }
         });
 
+        jListBetOptions.setBackground(new java.awt.Color(237, 237, 237));
+        jListBetOptions.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 102, 255), 1, true));
+        jListBetOptions.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jListBetOptions.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jListBetOptions.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jListBetOptions.setAlignmentX(1.0F);
+        jListBetOptions.setAlignmentY(1.0F);
+        jScrollPane1.setViewportView(jListBetOptions);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtTitle)
-                        .addGap(109, 109, 109))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtBet)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnReturn)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnBet))
-                                .addComponent(cmbBetOptions, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(34, 34, 34))))
+                .addGap(101, 101, 101)
+                .addComponent(txtTitle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(txtSubTitle))
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtBet)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnReturn)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBet))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSubTitle)))
+                .addGap(0, 48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,12 +112,12 @@ public class Bets extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addComponent(txtBet)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbBetOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBet, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -126,10 +128,6 @@ public class Bets extends javax.swing.JFrame {
         // Limpar os campos
 
     }                                         
-
-    private void cmbBetOptionsActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }                                             
 
     private void btnBetActionPerformed(java.awt.event.ActionEvent evt) {                                       
         // TODO add your handling code here:
@@ -173,7 +171,8 @@ public class Bets extends javax.swing.JFrame {
     // Variables declaration - do not modify                     
     private javax.swing.JButton btnBet;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JComboBox<String> cmbBetOptions;
+    private javax.swing.JList<String> jListBetOptions;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel txtBet;
     private javax.swing.JLabel txtSubTitle;
     private javax.swing.JLabel txtTitle;

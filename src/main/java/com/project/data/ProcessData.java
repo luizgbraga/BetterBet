@@ -12,14 +12,14 @@ import tech.tablesaw.api.Row;
 import tech.tablesaw.api.Table;
 
 /**
- * Classe de processamento dos dados
+ * Class for processing data
  * @author Diogo Laurindo
  */
 
 public class ProcessData {
     
     /** 
-     * A function only for testing the output of ProcessData methods.
+     * Function only for testing the output of ProcessData methods
      */
     public static void main(String[] args) {
         HashMap<String, Table> hashMap = CollectData.generateTrainingAndTestData();
@@ -32,9 +32,9 @@ public class ProcessData {
     }
 
     /**
-     * A function that transforms a Table into a bidimensional array.
-     * @param table Table that will be transformed.
-     * @return A bidimensional array with all table data.
+     * A function that transforms a Table into a bidimensional array
+     * @param table table that will be transformed
+     * @return bidimensional array with all table data
      */
     public static double[][] tableToArrayTransformer(Table table) {
         int numberOfColumns = table.columnCount() - 1;
@@ -48,13 +48,13 @@ public class ProcessData {
             for (int rowColumn = 1; rowColumn <= numberOfColumns; rowColumn++) {
                 try {
                     if (table.column(rowColumn).name().equals("rodada")) {
-                        matrix[rowIndex][rowColumn-1] = row.getInt(rowColumn)/38.0;
+                        matrix[rowIndex][rowColumn - 1] = row.getInt(rowColumn)/38.0;
                     }   
                     else {
-                        matrix[rowIndex][rowColumn-1] = row.getInt(rowColumn);
+                        matrix[rowIndex][rowColumn - 1] = row.getInt(rowColumn);
                     }
                 } catch (IllegalArgumentException e) {
-                    matrix[rowIndex][rowColumn-1] = row.getTime(rowColumn).getHour()/24.0;
+                    matrix[rowIndex][rowColumn - 1] = row.getTime(rowColumn).getHour()/24.0;
                 }
             }
         }
@@ -63,11 +63,11 @@ public class ProcessData {
     } 
     
     /** 
-     * A function that transforms two tables, input and output data, into a list of tuples that 
-     * consists of an input from a match, and the respective output for that match.
-     * @param inputData A table that contains all of the input data.
-     * @param outputData A table that contains all of the expected output data.
-     * @return A list of tuples with input and output data for each tuple.
+     * Function that transforms two tables, input and output data, into a list of tuples that 
+     * consists of an input from a match, and the respective output for that match
+     * @param inputData table that contains all of the input data
+     * @param outputData table that contains all of the expected output data
+     * @return list of tuples with input and output data for each tuple
      */
     public static List<Tuple<Matrix, Matrix>> generateTuple(Table inputData, Table outputData) {
         double[][] inputArrayBidimensional = tableToArrayTransformer(inputData);
@@ -99,13 +99,12 @@ public class ProcessData {
     }
 
     /**
-     * A function that formats the input data into a matrix that will serve as input to the
-     * machine learning model.
-     * @param homeClubId The id of the home club.
-     * @param visitorClubId The id of the visitor club.
-     * @param hour The hour of the match.
-     * @param round The round of championship.
-     * @return A matrix will all of that data formated.
+     * Function that formats the input data into a matrix that will serve as input to the machine learning model
+     * @param homeClubId id of the home club
+     * @param visitorClubId id of the visitor club
+     * @param hour hour of the match
+     * @param round round of championship
+     * @return matrix will all of that data formatted
      */
     public static Matrix formatInputData(int homeClubId, int visitorClubId, double hour, double round) {
         HashMap<String, Integer> clubId = CollectData.clubId;
@@ -130,9 +129,9 @@ public class ProcessData {
     }
 
     /**
-     * A function that gets the output matrix from the inputForm screen and returns an array of bets to do.
-     * @param output A matrix that represents the inputForm data.
-     * @return An array of strings with the bets to do.
+     * Function that gets the output matrix from the inputForm screen and returns an array of bets to do
+     * @param output matrix that represents the inputForm data
+     * @return array of strings with the bets to do
      */
     public static String[] outputToArray(Matrix output) {
         HashMap<String, Double> bets = new HashMap<String, Double>();

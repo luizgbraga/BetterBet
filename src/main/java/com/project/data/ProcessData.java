@@ -130,6 +130,11 @@ public class ProcessData {
         return Matrix.transpose(inputDataMatrix);
     }
 
+    /**
+     * A function that gets the output matrix from the inputForm screen and returns an array of bets to do.
+     * @param output A matrix that represents the inputForm data.
+     * @return An array of strings with the bets to do.
+     */
     public String[] outputToArray(Matrix output) {
         HashMap<String, Double> bets = new HashMap<String, Double>();
         double[][] outputArray = output.getData();

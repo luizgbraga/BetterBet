@@ -14,8 +14,8 @@ public class Matrix {
 
     /**
      * This constructor initializes the matrix with random values following a gaussian distribution 
-     * @param rows
-     * @param columns
+     * @param rows number of rows
+     * @param columns number of columns
      */
     public Matrix(int rows, int columns) {
         this.data = new double[rows][columns];
@@ -31,9 +31,9 @@ public class Matrix {
 
     /** 
      * This constructor initializes the matrix with 0s in all entries 
-     * @param rows
-     * @param columns
-     * @param zero (this constructor is called when zero is passed as true)
+     * @param rows number of rows  
+     * @param columns number of columns
+     * @param zero this constructor is called when zero is passed as true
      */
     public Matrix(int rows, int columns, boolean zero) {
         this.data = new double[rows][columns];
@@ -43,7 +43,7 @@ public class Matrix {
 
     /** 
      * This constructor initializes the matrix with the values passed in data 
-     * @param data
+     * @param data array of arrays of double values to initialize the matrix
      */
     public Matrix(double[][] data) {
         this.data = data;
@@ -53,7 +53,7 @@ public class Matrix {
 
     /** 
      * Constructor that converts CSV record to matrix
-     * @param record
+     * @param record list of matrix rows
      */
     public Matrix(String[] record) {
         int rows = record.length;
@@ -109,10 +109,10 @@ public class Matrix {
 
     /** 
      * Sets matrix[i][j] = element
-     * @param i
-     * @param j 
-     * @param element
-     * @throws IllegalArgumentException
+     * @param i row-index
+     * @param j column-index
+     * @param element value
+     * @throws IllegalArgumentException if position is out of matrix bounds
      */
     public void setPosition(int i, int j, double element) throws IllegalArgumentException {
         if (i > this.rows || j > this.columns) {
@@ -127,8 +127,8 @@ public class Matrix {
      */
     public Matrix copy() {
         Matrix matrixCopy = new Matrix(this.rows, this.columns);
-        for(int i = 0; i < this.rows; i++) {
-            for(int j = 0; j < this.columns; j++) {
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.columns; j++) {
                 matrixCopy.data[i][j] = this.data[i][j];
             }
         }
@@ -143,8 +143,8 @@ public class Matrix {
      */
     static public Matrix add(Matrix m, double scalar) {
         Matrix temp = new Matrix(m.rows, m.columns);
-        for(int i = 0; i < m.rows; i++) {
-            for(int j = 0; j < m.columns; j++) {
+        for (int i = 0; i < m.rows; i++) {
+            for (int j = 0; j < m.columns; j++) {
                 temp.data[i][j] = m.data[i][j] + scalar;
             }
         }
@@ -154,10 +154,10 @@ public class Matrix {
     
     /** 
      * Sums a matrix to another matrix, term by term
-     * @param m
-     * @param n
+     * @param m first matrix
+     * @param n second matrix
      * @return Matrix
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException if shape mismatch
      */
     static public Matrix add(Matrix m, Matrix n) throws IllegalArgumentException {
         if (m.rows != n.rows || m.columns != n.columns) {
@@ -175,10 +175,10 @@ public class Matrix {
     
     /** 
      * Subtracts a matrix from another matrix, term by term
-     * @param m
-     * @param n
+     * @param m first matrix
+     * @param n second matrix
      * @return Matrix
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException if shape mismatch
      */
     static public Matrix subtract(Matrix m, Matrix n) throws IllegalArgumentException {
         if (m.rows != n.rows || m.columns != n.columns) {
@@ -229,10 +229,10 @@ public class Matrix {
     
     /** 
      * Multiplication of matrices (default way)
-     * @param m
-     * @param n
+     * @param m first matrix
+     * @param n second matrix
      * @return Matrix
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException if shape mismatch
      */
     static public Matrix multiply(Matrix m, Matrix n) throws IllegalArgumentException {
         if (m.columns != n.rows) {
@@ -253,10 +253,10 @@ public class Matrix {
     
     /** 
      * Multiplies two matrices term by term
-     * @param m
-     * @param n
+     * @param m first matrix
+     * @param n second matrix
      * @return Matrix
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException if shape mismatch
      */
     static public Matrix dot(Matrix m, Matrix n) throws IllegalArgumentException {
         if (m.rows != n.rows || m.columns != n.columns) {
@@ -355,7 +355,3 @@ public class Matrix {
         return result;
     }
 }
-
-
-
-

@@ -11,7 +11,7 @@ import java.util.Date;
 public class TimeConverter {
     /** 
      * Converts a time String to a Double in [0, 1]
-     * @param timeString
+     * @param timeString formatted as "HH:mm"
      */
     public static double timeToFraction(String timeString) {
         try {

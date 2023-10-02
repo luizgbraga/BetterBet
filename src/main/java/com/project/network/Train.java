@@ -24,7 +24,7 @@ public class Train {
 
 			int[] sizes = { 
 				tables.get("trainingDataInput").columnCount() - 1,
-				48, 
+				60, 
 				tables.get("trainingDataOutput").columnCount() - 1 
 			};
 
@@ -32,6 +32,6 @@ public class Train {
 			testData = ProcessData.generateTuple(tables.get("testingDataInput"), tables.get("testingDataOutput"));
 
 			Network nn = new Network(sizes);
-			nn.StochasticGradientDescent(trainingData, 30, 10, 0.01, testData);
+			nn.StochasticGradientDescent(trainingData, 30, 15, 0.1, testData);
     }
 }

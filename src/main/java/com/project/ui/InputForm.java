@@ -17,10 +17,16 @@ import tech.tablesaw.api.Table;
  */
 public class InputForm extends javax.swing.JFrame {
 
+    /**
+     * Calls UI components initialization
+     */
     public InputForm() {
         initComponents();
     }
-                       
+     
+    /**
+     * Initializes the UI components
+     */
     private void initComponents() {
 
         txtTitle = new javax.swing.JLabel();
@@ -158,36 +164,41 @@ public class InputForm extends javax.swing.JFrame {
      * Handles form submit
      * @param evt
      */
-    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {  
+        // Reads all input values into variables                                        
         String homeClubName = cmbHomeClubName.getSelectedItem().toString();
         String visitorClubName = cmbVisitorClubName.getSelectedItem().toString();
         String selectedHour = cmbMatchTime.getSelectedItem().toString();
         String selectedRound = cmbRound.getSelectedItem().toString();
         int selectedRisk = sliderRisk.getValue();
 
+        // Converts String names into Ids
         CollectData.updateClubId();
         HashMap<String, Integer> ids = CollectData.clubId;
-
         int homeClubId = ids.get(homeClubName);
         int visitorClubId = ids.get(visitorClubName);
+
+        // Formats other variables for network understanding
         double hour = TimeConverter.timeToFraction(selectedHour);
         double round = (double)Integer.parseInt(selectedRound)/38.0;
         double risk = (double)selectedRisk/150.0;
-
-        Matrix input = ProcessData.formatInputData(homeClubId, visitorClubId, hour, round);
-
+                
+        // Generates sizes array
         HashMap<String, Table> tables = CollectData.generateTrainingAndTestData();
         int[] sizes = { 
             tables.get("trainingDataInput").columnCount() - 1, 
-            50, 
-            tables.get("trainingDataOutput").columnCount() - 1 };
+            60, 
+            tables.get("trainingDataOutput").columnCount() - 1 
+        };
 
+        // Network's input formatted
+        Matrix input = ProcessData.formatInputData(homeClubId, visitorClubId, hour, round);
 		Network nn;
+
         try {
-            nn = new Network(sizes, "test.csv");
+            nn = new Network(sizes, "network_params.csv");
             Matrix output = nn.feedForward(input);
             output = Matrix.round(output, risk);
-            output.displayMatrix();
             this.dispose();
             String[] parameters = ProcessData.outputToArray(output);
             EventQueue.invokeLater(new Runnable(){

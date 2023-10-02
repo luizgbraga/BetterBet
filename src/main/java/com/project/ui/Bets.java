@@ -124,8 +124,7 @@ public class Bets extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-        // Limpar os campos
+        
 
     }                                         
 

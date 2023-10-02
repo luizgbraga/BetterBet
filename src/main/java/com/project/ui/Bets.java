@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.project.ui;
+import java.awt.EventQueue;
 
 /**
  *
@@ -30,7 +27,6 @@ public class Bets extends javax.swing.JFrame {
         txtTitle = new javax.swing.JLabel();
         txtSubTitle = new javax.swing.JLabel();
         txtBet = new javax.swing.JLabel();
-        btnBet = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListBetOptions = new javax.swing.JList<>();
 
@@ -56,17 +52,6 @@ public class Bets extends javax.swing.JFrame {
 
         txtBet.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         txtBet.setText("Melhores apostas para você:");
-
-        btnBet.setBackground(new java.awt.Color(51, 102, 255));
-        btnBet.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        btnBet.setForeground(new java.awt.Color(255, 255, 255));
-        btnBet.setText("Apostar");
-        btnBet.setBorderPainted(false);
-        btnBet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBetActionPerformed(evt);
-            }
-        });
 
         jListBetOptions.setBackground(new java.awt.Color(237, 237, 237));
         jListBetOptions.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 102, 255), 1, true));
@@ -96,8 +81,7 @@ public class Bets extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnReturn)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBet))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtSubTitle)))
                 .addGap(0, 48, Short.MAX_VALUE))
@@ -115,8 +99,7 @@ public class Bets extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBet, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
 
@@ -124,14 +107,14 @@ public class Bets extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-        // Limpar os campos
+        EventQueue.invokeLater(new Runnable(){
+            public void run(){
+                InputForm form = new InputForm();
+                form.setVisible(true);
+            }
+        });
 
-    }                                         
-
-    private void btnBetActionPerformed(java.awt.event.ActionEvent evt) {                                       
-        // TODO add your handling code here:
-    }                                      
+    }                                                                  
 
     /**
      * @param args the command line arguments
@@ -168,8 +151,7 @@ public class Bets extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify                     
-    private javax.swing.JButton btnBet;
+    // Variables declaration - do not modify   
     private javax.swing.JButton btnReturn;
     private javax.swing.JList<String> jListBetOptions;
     private javax.swing.JScrollPane jScrollPane1;

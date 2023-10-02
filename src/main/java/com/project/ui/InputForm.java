@@ -2,7 +2,7 @@ package com.project.ui;
 
 import java.io.IOException;
 import java.util.HashMap;
-
+import java.awt.EventQueue;
 import com.project.data.CollectData;
 import com.project.util.TimeConverter;
 import com.project.data.ProcessData;
@@ -187,6 +187,13 @@ public class InputForm extends javax.swing.JFrame {
             Matrix output = nn.feedForward(input);
             output = Matrix.round(output, risk);
             output.displayMatrix();
+            this.dispose();
+            EventQueue.invokeLater(new Runnable(){
+                public void run(){
+                    Bets bets = new Bets();
+                    bets.setVisible(true);
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -4,7 +4,6 @@ import com.project.util.Matrix;
 import com.project.util.Tuple;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -138,15 +137,15 @@ public class ProcessData {
     public static String[] outputToArray(Matrix output) {
         HashMap<String, Double> bets = new HashMap<String, Double>();
         double[][] outputArray = output.getData();
-        bets.put("bs",outputArray[0][0]);
-        bets.put("mt1g", outputArray[1][0]);
-        bets.put("mt2g", outputArray[2][0]);
-        bets.put("mt3g", outputArray[3][0]);
-        bets.put("mt4g", outputArray[4][0]);
-        bets.put("mt5g", outputArray[5][0]);
-        bets.put("dgt2", outputArray[6][0]);
-        bets.put("dgt3", outputArray[7][0]);
-        bets.put("zero_gols", outputArray[8][0]);
+        bets.put("Ambos marcam",outputArray[0][0]);
+        bets.put("Mais de 1 gol", outputArray[1][0]);
+        bets.put("Mais de 2 gols", outputArray[2][0]);
+        bets.put("Mais de 3 gols", outputArray[3][0]);
+        bets.put("Mais de 4 gols", outputArray[4][0]);
+        bets.put("Mais de 5 gols", outputArray[5][0]);
+        bets.put("Diferença maior de 2 gols", outputArray[6][0]);
+        bets.put("Diferença maior de 3 gols", outputArray[7][0]);
+        bets.put("Sem gols", outputArray[8][0]);
 
         ArrayList<String> betsToDo = new ArrayList<String>();
 

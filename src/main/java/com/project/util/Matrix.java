@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * Class for helping matrix treatments along the network
- * It is important to notice that most methods in this class do NOT modify the this, and that is why they are static
+ * It is important to notice that most methods in this class do NOT modify the "this", and that is why they are static
  * @author Luiz Guilherme Amadi Braga
  */
 public class Matrix {

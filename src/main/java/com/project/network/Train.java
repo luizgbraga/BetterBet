@@ -11,23 +11,27 @@ import com.project.util.Tuple;
 
 import tech.tablesaw.api.Table;
 
+/**
+ * Class for training neural network
+ * @author Luiz Guilherme Amadi Braga
+ */
 public class Train {
     static List<Tuple<Matrix, Matrix>> trainingData = new ArrayList<>();
 	static List<Tuple<Matrix, Matrix>> testData = new ArrayList<>();
 	
     	public static void main(String[] args) {
-		HashMap<String, Table> tables = CollectData.generateTrainingAndTestData();
+			HashMap<String, Table> tables = CollectData.generateTrainingAndTestData();
 
-		int[] sizes = { 
-			tables.get("trainingDataInput").columnCount() - 1,
-			48, 
-			tables.get("trainingDataOutput").columnCount() - 1 
-		};
+			int[] sizes = { 
+				tables.get("trainingDataInput").columnCount() - 1,
+				48, 
+				tables.get("trainingDataOutput").columnCount() - 1 
+			};
 
-		trainingData = ProcessData.generateTuple(tables.get("trainingDataInput"), tables.get("trainingDataOutput"));
-		testData = ProcessData.generateTuple(tables.get("testingDataInput"), tables.get("testingDataOutput"));
+			trainingData = ProcessData.generateTuple(tables.get("trainingDataInput"), tables.get("trainingDataOutput"));
+			testData = ProcessData.generateTuple(tables.get("testingDataInput"), tables.get("testingDataOutput"));
 
-		Network nn = new Network(sizes);
-        nn.StochasticGradientDescent(trainingData, 30, 10, 0.01, testData);
+			Network nn = new Network(sizes);
+			nn.StochasticGradientDescent(trainingData, 30, 10, 0.01, testData);
     }
 }

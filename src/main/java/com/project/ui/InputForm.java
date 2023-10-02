@@ -188,7 +188,7 @@ public class InputForm extends javax.swing.JFrame {
             output = Matrix.round(output, risk);
             output.displayMatrix();
             this.dispose();
-            String[] parameters = {"param1", "param2", "param3"};
+            String[] parameters = ProcessData.outputToArray(output);
             EventQueue.invokeLater(new Runnable(){
                 public void run(){
                     Bets bets = new Bets(parameters);

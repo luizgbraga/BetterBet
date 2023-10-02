@@ -4,8 +4,10 @@ import com.project.util.Matrix;
 import com.project.util.Tuple;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import tech.tablesaw.api.Row;
 import tech.tablesaw.api.Table;
@@ -126,5 +128,40 @@ public class ProcessData {
         Matrix inputDataMatrix = new Matrix(inputData);
 
         return Matrix.transpose(inputDataMatrix);
+    }
+
+    /**
+     * A function that gets the output matrix from the inputForm screen and returns an array of bets to do.
+     * @param output A matrix that represents the inputForm data.
+     * @return An array of strings with the bets to do.
+     */
+    public static String[] outputToArray(Matrix output) {
+        HashMap<String, Double> bets = new HashMap<String, Double>();
+        double[][] outputArray = output.getData();
+        bets.put("bs",outputArray[0][0]);
+        bets.put("mt1g", outputArray[1][0]);
+        bets.put("mt2g", outputArray[2][0]);
+        bets.put("mt3g", outputArray[3][0]);
+        bets.put("mt4g", outputArray[4][0]);
+        bets.put("mt5g", outputArray[5][0]);
+        bets.put("dgt2", outputArray[6][0]);
+        bets.put("dgt3", outputArray[7][0]);
+        bets.put("zero_gols", outputArray[8][0]);
+
+        ArrayList<String> betsToDo = new ArrayList<String>();
+
+        for (Map.Entry<String, Double> entrie : bets.entrySet()) {
+            String key = entrie.getKey();
+            double value = entrie.getValue();
+
+            if (value == 1) {
+                betsToDo.add(key);
+            }
+        }
+
+        String[] betsToDoArray = new String[betsToDo.size()];
+        betsToDoArray = betsToDo.toArray(betsToDoArray);
+        
+        return betsToDoArray;
     }
 }

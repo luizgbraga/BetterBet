@@ -6,11 +6,13 @@ import java.awt.EventQueue;
  * @author alexis
  */
 public class Bets extends javax.swing.JFrame {
+    static String[] bets;
 
     /**
      * Creates new form Bets
      */
-    public Bets() {
+    public Bets(String[] bestBets) {
+        bets = bestBets;
         initComponents();
     }
 
@@ -57,7 +59,7 @@ public class Bets extends javax.swing.JFrame {
         jListBetOptions.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 102, 255), 1, true));
         jListBetOptions.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jListBetOptions.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = bets;
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -146,7 +148,8 @@ public class Bets extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Bets().setVisible(true);
+                Bets b = new Bets(bets);
+                b.setVisible(true);
             }
         });
     }

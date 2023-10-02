@@ -188,9 +188,10 @@ public class InputForm extends javax.swing.JFrame {
             output = Matrix.round(output, risk);
             output.displayMatrix();
             this.dispose();
+            String[] parameters = {"param1", "param2", "param3"};
             EventQueue.invokeLater(new Runnable(){
                 public void run(){
-                    Bets bets = new Bets();
+                    Bets bets = new Bets(parameters);
                     bets.setVisible(true);
                 }
             });

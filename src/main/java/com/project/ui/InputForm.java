@@ -11,8 +11,6 @@ import com.project.util.Matrix;
 
 import tech.tablesaw.api.Table;
 
-import com.project.ui.Bets;
-
 public class InputForm extends javax.swing.JFrame {
 
     public InputForm() {

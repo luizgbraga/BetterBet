@@ -45,12 +45,12 @@ public class Network {
      * @param fileName
      * Constructor by reading CSV
      */
-    public Network(int[] sizes, String filename) throws IOException {
+    public Network(int[] sizes, String fileName) throws IOException {
         this.numLayers = sizes.length;
         this.sizes = sizes;
         this.biases = new ArrayList<>();
         this.weights = new ArrayList<>();
-        try (CSVReader csvReader = new CSVReader(new FileReader(filename))) {
+        try (CSVReader csvReader = new CSVReader(new FileReader(fileName))) {
             List<String[]> records = csvReader.readAll();
             for (int i = 0; i < sizes.length - 1; i++) {
                 this.biases.add(new Matrix(records.get(i)));
@@ -123,7 +123,7 @@ public class Network {
     
     /** 
      * Evaluates the network performance in guessing the correct bets to be made
-     * Receives a testData of Tuples<inputsMatrix, expectedOutputMatrix> to perform its evaluation
+     * Receives a testData of Tuples(inputsMatrix, expectedOutputMatrix) to perform its evaluation
      * @param testData
      * @return double
      */
@@ -157,7 +157,7 @@ public class Network {
      * Computes the gradients (partial derivatives) of the cost function with respect to the weights and biases of a neural network
      * @param x
      * @param y
-     * @return Tuple<List<Matrix>, List<Matrix>>
+     * @return Tuple(List(Matrix), List(Matrix))
      */
     public Tuple<List<Matrix>, List<Matrix>> backprop(Matrix x, Matrix y) {
         List<Matrix> nablaB = new ArrayList<>();

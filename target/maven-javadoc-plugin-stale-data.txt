@@ -1,0 +1,78 @@
+@options
+@packages
+-classpath
+'C:/Users/didil/.m2/repository/com/opencsv/opencsv/4.2/opencsv-4.2.jar;C:/Users/didil/.m2/repository/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.jar;C:/Users/didil/.m2/repository/org/apache/commons/commons-text/1.3/commons-text-1.3.jar;C:/Users/didil/.m2/repository/commons-beanutils/commons-beanutils/1.9.3/commons-beanutils-1.9.3.jar;C:/Users/didil/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar;C:/Users/didil/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar;C:/Users/didil/.m2/repository/org/apache/commons/commons-collections4/4.1/commons-collections4-4.1.jar;C:/Users/didil/.m2/repository/tech/tablesaw/tablesaw-core/0.43.1/tablesaw-core-0.43.1.jar;C:/Users/didil/.m2/repository/com/google/guava/guava/30.0-jre/guava-30.0-jre.jar;C:/Users/didil/.m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar;C:/Users/didil/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:/Users/didil/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar;C:/Users/didil/.m2/repository/org/checkerframework/checker-qual/3.5.0/checker-qual-3.5.0.jar;C:/Users/didil/.m2/repository/com/google/errorprone/error_prone_annotations/2.3.4/error_prone_annotations-2.3.4.jar;C:/Users/didil/.m2/repository/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar;C:/Users/didil/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar;C:/Users/didil/.m2/repository/it/unimi/dsi/fastutil/8.3.0/fastutil-8.3.0.jar;C:/Users/didil/.m2/repository/org/roaringbitmap/RoaringBitmap/0.9.25/RoaringBitmap-0.9.25.jar;C:/Users/didil/.m2/repository/com/univocity/univocity-parsers/2.8.4/univocity-parsers-2.8.4.jar;C:/Users/didil/.m2/repository/com/ibm/icu/icu4j/65.1/icu4j-65.1.jar;C:/Users/didil/.m2/repository/io/github/classgraph/classgraph/4.8.60/classgraph-4.8.60.jar;C:/Users/didil/.m2/repository/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.jar;C:/Users/didil/.m2/repository/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar'
+-encoding
+'UTF-8'
+-protected
+-source
+'1.8'
+-sourcepath
+'C:/Users/didil/OneDrive/Documentos/Code/LabProg2_Java/BetterBet/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2023. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/didil/OneDrive/Documentos/Code/LabProg2_Java/BetterBet/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'better-bet 1.0-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/javase/8/docs/api' 'C:/Users/didil/OneDrive/Documentos/Code/LabProg2_Java/BetterBet/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'better-bet 1.0-SNAPSHOT API'
+com.project.data
+com.project
+com.project.network
+com.project.ui
+com.project.util
+C:\Users\didil\.m2\repository\com\opencsv\opencsv\4.2\opencsv-4.2.jar = 1696245812258
+C:\Users\didil\.m2\repository\org\apache\commons\commons-lang3\3.7\commons-lang3-3.7.jar = 1696245812219
+C:\Users\didil\.m2\repository\org\apache\commons\commons-text\1.3\commons-text-1.3.jar = 1696245812291
+C:\Users\didil\.m2\repository\commons-beanutils\commons-beanutils\1.9.3\commons-beanutils-1.9.3.jar = 1696245812354
+C:\Users\didil\.m2\repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar = 1692191447005
+C:\Users\didil\.m2\repository\commons-collections\commons-collections\3.2.2\commons-collections-3.2.2.jar = 1692191447171
+C:\Users\didil\.m2\repository\org\apache\commons\commons-collections4\4.1\commons-collections4-4.1.jar = 1696245812557
+C:\Users\didil\.m2\repository\tech\tablesaw\tablesaw-core\0.43.1\tablesaw-core-0.43.1.jar = 1693157796418
+C:\Users\didil\.m2\repository\com\google\guava\guava\30.0-jre\guava-30.0-jre.jar = 1693157797609
+C:\Users\didil\.m2\repository\com\google\guava\failureaccess\1.0.1\failureaccess-1.0.1.jar = 1693157795777
+C:\Users\didil\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar = 1693157795775
+C:\Users\didil\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar = 1693157795774
+C:\Users\didil\.m2\repository\org\checkerframework\checker-qual\3.5.0\checker-qual-3.5.0.jar = 1693157796260
+C:\Users\didil\.m2\repository\com\google\errorprone\error_prone_annotations\2.3.4\error_prone_annotations-2.3.4.jar = 1693157796051
+C:\Users\didil\.m2\repository\com\google\j2objc\j2objc-annotations\1.3\j2objc-annotations-1.3.jar = 1693157796047
+C:\Users\didil\.m2\repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar = 1693156164901
+C:\Users\didil\.m2\repository\it\unimi\dsi\fastutil\8.3.0\fastutil-8.3.0.jar = 1693157802501
+C:\Users\didil\.m2\repository\org\roaringbitmap\RoaringBitmap\0.9.25\RoaringBitmap-0.9.25.jar = 1693157796692
+C:\Users\didil\.m2\repository\com\univocity\univocity-parsers\2.8.4\univocity-parsers-2.8.4.jar = 1693157797056
+C:\Users\didil\.m2\repository\com\ibm\icu\icu4j\65.1\icu4j-65.1.jar = 1693157801783
+C:\Users\didil\.m2\repository\io\github\classgraph\classgraph\4.8.60\classgraph-4.8.60.jar = 1693157797345
+C:\Users\didil\.m2\repository\org\slf4j\slf4j-api\1.7.30\slf4j-api-1.7.30.jar = 1693157797312
+C:\Users\didil\.m2\repository\com\googlecode\json-simple\json-simple\1.1\json-simple-1.1.jar = 1693160951473
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\src\main\java = 1692099491376
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\allclasses-index.html = 1696295346441
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\allpackages-index.html = 1696295346446
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\copy.svg = 1696295346556
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\element-list = 1696295345880
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\help-doc.html = 1696295346537
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\index-all.html = 1696295346501
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\index.html = 1696295346387
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\javadoc.bat = 1696295203638
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\member-search-index.js = 1696295346458
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\module-search-index.js = 1696295346450
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\overview-summary.html = 1696295346517
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\overview-tree.html = 1696295346370
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\package-search-index.js = 1696295346453
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\script.js = 1696295346553
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\search-page.js = 1696295346640
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\search.html = 1696295346509
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\search.js = 1696295346609
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\serialized-form.html = 1696295346188
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\stylesheet.css = 1696295346544
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\tag-search-index.js = 1696295346460
+C:\Users\didil\OneDrive\Documentos\Code\LabProg2_Java\BetterBet\target\site\apidocs\type-search-index.js = 1696295346456
